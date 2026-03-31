@@ -10,6 +10,6 @@ const app = express();
 app.use(express.json());
 
 app.use("/auth", authRoutes);
-app.use("/routes/services", servicesRoutes);
+app.use("/services", servicesRoutes);
 
 export default app;
