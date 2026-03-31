@@ -11,5 +11,8 @@ app.use(express.json());
 
 app.use("/auth", authRoutes);
 app.use("/services", servicesRoutes);
+app.get("/", (req, res) => {
+  res.json({ message: "Daleel API is running ✅" });
+});
 
 export default app;
