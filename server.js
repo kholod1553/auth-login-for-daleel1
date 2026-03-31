@@ -12,4 +12,4 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/routes/services", servicesRoutes);
 
-module.exports = app;
+export default app;
