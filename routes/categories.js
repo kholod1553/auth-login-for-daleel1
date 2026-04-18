@@ -1,17 +1,17 @@
 import express from "express";
-import dotenv from "dotenv";
-import authRoutes from "./routes/auth.js";
-import servicesRoutes from "./routes/services.js";
+import { supabase } from "../supabaseClient.js";
+import { FALLBACK_CATEGORIES } from "../data/fallbackData.js";
 
-dotenv.config();
+const router = express.Router();
 
-const app = express();
+router.get("/", async (req, res) => {
+  const { data, error } = await supabase.from("categories").select("*");
 
-app.use(express.json());
+  if (error || !data?.length) {
+    return res.json(FALLBACK_CATEGORIES);
+  }
 
-app.use("/auth", authRoutes);
-app.use(servicesRoutes); // ← أو "/services", servicesRoutes لو عايز prefix
-
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000 🚀");
+  res.json(data);
 });
+
+export default router;
