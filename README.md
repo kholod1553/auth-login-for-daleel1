@@ -168,13 +168,4 @@ curl http://localhost:3000/categories
 
 This project is configured for Vercel through `vercel.json`.
 
-## Contribution Note
 
-Commits pushed with the Git identity:
-
-- `Abdelazizomar22`
-- `140859935+Abdelazizomar22@users.noreply.github.com`
-
-are attributable to the GitHub account [Abdelazizomar22](https://github.com/Abdelazizomar22).
-
-For the contribution to appear in the GitHub contributions graph reliably, the branch usually needs to be merged into the repository's default branch.
