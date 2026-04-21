@@ -28,7 +28,9 @@ const toWritePayload = (body) => {
   if (body.image_url !== undefined) {
     payload.image_url = body.image_url;
   }
-
+  if (body.category_id !== undefined) {
+    payload.category_id = body.category_id;
+  }
   return payload;
 };
 
