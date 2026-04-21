@@ -12,25 +12,14 @@ const normalizeService = (service) => ({
 
 const toWritePayload = (body) => {
   const payload = {};
-
-  if (body.name !== undefined || body.title !== undefined) {
-    payload.name = body.name ?? body.title;
-  }
-
-  if (body.description !== undefined) {
-    payload.description = body.description;
-  }
-
-  if (body.price !== undefined) {
-    payload.price = body.price;
-  }
-
-  if (body.image_url !== undefined) {
-    payload.image_url = body.image_url;
-  }
-  if (body.category_id !== undefined) {
-    payload.category_id = body.category_id;
-  }
+}
+  if (body.description !== undefined) payload.description = body.description;
+  if (body.price !== undefined) payload.price = body.price;
+  if (body.image_url !== undefined) payload.image_url = body.image_url;
+  if (body.category_id !== undefined) payload.category_id = body.category_id;
+  if (body.category_name !== undefined) payload.category_name = body.category_name;
+  if (body.service_id !== undefined) payload.service_id = body.service_id;
+ 
   return payload;
 };
 
