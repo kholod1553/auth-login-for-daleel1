@@ -21,6 +21,7 @@ const toWritePayload = (body) => {
   if (body.category_id !== undefined) payload.category_id = body.category_id;
   if (body.category_name !== undefined) payload.category_name = body.category_name;
   if (body.service_id !== undefined) payload.service_id = body.service_id;
+  payload.is_public = false;
   return payload;
 };
 
