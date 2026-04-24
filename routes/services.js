@@ -64,7 +64,7 @@ router.get("/my-services", requireAuth, async (req, res) => {
 
 router.post("/", requireAuth, async (req, res) => {
   const payload = toWritePayload(req.body);
-
+  payload.user_id = req.user.id;
   if (!payload.name || payload.price === undefined || payload.price === null) {
     return res
       .status(400)
