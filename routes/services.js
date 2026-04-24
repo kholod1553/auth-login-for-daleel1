@@ -42,7 +42,7 @@ const formatWriteError = (error) => {
 };
 
 router.get("/", async (req, res) => {
-  const { data, error } = await supabase.from("services").select("*");
+  const { data, error } = await supabase.from("services").select("*").eq("is_public", true);
 
   if (error || !data?.length) {
     return res.json(FALLBACK_SERVICES);
