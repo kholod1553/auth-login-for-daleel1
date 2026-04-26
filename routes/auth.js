@@ -50,5 +50,13 @@ router.post("/login", async (req, res) => {
 router.get("/me", requireAuth, (req, res) => {
   res.json(req.user);
 });
+router.post("/logout", requireAuth, async (req, res) => {
+  const { error } = await supabase.auth.admin.signOut(req.accessToken);
 
+  if (error) {
+    return res.status(400).json({ error: error.message });
+  }
+
+  res.json({ message: "تم تسجيل الخروج بنجاح" });
+});
 export default router;
