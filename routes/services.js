@@ -21,7 +21,8 @@ const toWritePayload = (body) => {
   if (body.category_id !== undefined) payload.category_id = body.category_id;
   if (body.category_name !== undefined) payload.category_name = body.category_name;
   if (body.service_id !== undefined) payload.service_id = body.service_id;
-  payload.is_public = true;
+  payload.is_public = false;
+  payload.status = "pending";
   return payload;
 };
 
@@ -139,5 +140,38 @@ router.delete("/:id", requireAuth, async (req, res) => {
 
   res.json({ message: "Service deleted successfully", deletedId: data.id });
 });
+router.get("/pending", requireAuth, async (req, res) => {
+  const { data, error } = await req.supabase
+    .from("services")
+    .select("*")
+    .eq("status", "pending");
 
+  if (error) return res.status(400).json({ error: error.message });
+  res.json(data.map(normalizeService));
+});
+router.put("/:id/approve", requireAuth, async (req, res) => {
+  const { id } = req.params;
+  const { data, error } = await req.supabase
+    .from("services")
+    .update({ is_public: true, status: "approved" })
+    .eq("id", id)
+    .select()
+    .maybeSingle();
+
+  if (error) return res.status(400).json({ error: error.message });
+  if (!data) return res.status(404).json({ error: "Service not found" });
+  res.json({ message: "Service approved", service: data });
+});
+router.put("/:id/reject", requireAuth, async (req, res) => {
+  const { id } = req.params;
+  const { data, error } = await req.supabase
+    .from("services")
+    .update({ is_public: false, status: "rejected" })
+    .eq("id", id)
+    .select()
+    .maybeSingle();
+  if (error) return res.status(400).json({ error: error.message });
+  if (!data) return res.status(404).json({ error: "Service not found" });
+  res.json({ message: "Service rejected", service: data });
+});
 export default router;
