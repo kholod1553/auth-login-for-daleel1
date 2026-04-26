@@ -18,6 +18,21 @@ router.post("/signup", async (req, res) => {
     password,
     options: { data: { name, phone } },
   });
+  router.post("/register", async (req, res) => {
+  const { email, password, name, phone, username, birthdate } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ error: "Email and password are required" });
+  }
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { name, phone, username, birthdate },
+    },
+  });
+  if (error) return res.status(400).json({ error: error.message });
+  res.status(201).json(data);
+});
 
   if (error) {
     return res.status(400).json({ error: error.message });
