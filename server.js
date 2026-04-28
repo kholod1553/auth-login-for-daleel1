@@ -4,6 +4,7 @@ import authRoutes from "./routes/auth.js";
 import servicesRoutes from "./routes/services.js";
 import categoriesRoutes from "./routes/categories.js";
 import usersRoutes from "./routes/users.js";
+import votesRouter from "./routes/votes.js";
 dotenv.config();
 
 const app = express();
@@ -15,6 +16,7 @@ app.use("/auth", authRoutes);
 app.use("/services", servicesRoutes);
 app.use("/categories", categoriesRoutes);
 app.use("/users", usersRoutes);
+app.use("/votes", votesRouter);
 app.get("/", (req, res) => {
   res.json({ message: "Daleel API is running" });
 });
