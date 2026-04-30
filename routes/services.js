@@ -174,4 +174,33 @@ router.put("/:id/reject", requireAuth, async (req, res) => {
   if (!data) return res.status(404).json({ error: "Service not found" });
   res.json({ message: "Service rejected", service: data });
 });
+router.get("/popular", async (req, res) => {
+  const { data, error } = await supabase
+    .from("services")
+    .select("*, votes(count)")
+    .eq("is_public", true)
+    .order("created_at", { ascending: false })
+    .limit(10);
+
+  if (error) return res.status(400).json({ error: error.message });
+  res.json(data.map(normalizeService));
+});
+router.get("/search", async (req, res) => {
+  const { q } = req.query;
+
+  if (!q) return res.status(400).json({ error: "Search query is required" });
+
+  const { data, error } = await supabase
+    .from("services")
+    .select("*")
+    .eq("is_public", true)
+    .or(`name.ilike.%${q}%,description.ilike.%${q}%`);
+
+  if (error) return res.status(400).json({ error: error.message });
+
+  if (!data?.length) return res.status(404).json({ error: "لا توجد نتائج" });
+
+  res.json(data.map(normalizeService));
+});
+
 export default router;
