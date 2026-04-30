@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post("/message", requireAuth, async (req, res) => {
   const { message } = req.body;
-
+     console.log("KEY:", process.env.GEMINI_API_KEY);
   if (!message) {
     return res.status(400).json({ error: "Message is required" });
   }
