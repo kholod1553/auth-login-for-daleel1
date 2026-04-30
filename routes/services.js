@@ -177,7 +177,7 @@ router.put("/:id/reject", requireAuth, async (req, res) => {
 router.get("/popular", async (req, res) => {
   const { data, error } = await supabase
     .from("services")
-    .select("*, votes(count)")
+    .select("*")
     .eq("is_public", true)
     .order("created_at", { ascending: false })
     .limit(10);
