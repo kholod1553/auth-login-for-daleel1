@@ -179,7 +179,6 @@ router.get("/popular", async (req, res) => {
     .from("services")
     .select("*")
     .eq("is_public", true)
-    .order("created_at", { ascending: false })
     .limit(10);
 
   if (error) return res.status(400).json({ error: error.message });
