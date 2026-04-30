@@ -1,6 +1,6 @@
 import express from "express";
 import { requireAuth } from "../middleware/auth.js";
-
+import { SYSTEM_PROMPT } from "../data/prompts.js";
 const router = express.Router();
 
 router.post("/message", requireAuth, async (req, res) => {
@@ -12,21 +12,13 @@ router.post("/message", requireAuth, async (req, res) => {
 
   try {
     const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY`},
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=+process.env.GEMINI_API_KEY`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           system_instruction: {
-            parts: [{
-              text: `أنت مساعد ذكي لتطبيق دليل المصري. 
-              مهمتك مساعدة المستخدمين في:
-              - الإجابة على أسئلتهم عن الخدمات الحكومية في مصر
-              - شرح خطوات إتمام المعاملات الحكومية
-              - توجيههم للجهات المختصة
-              - إخبارهم بالأوراق والمستندات المطلوبة
-              تكلم دايماً بالعربي وكن مختصراً وواضحاً.`
-            }]
+            parts: [{text: SYSTEM_PROMPT }]
           },
           contents: [{
             parts: [{ text: message }]
