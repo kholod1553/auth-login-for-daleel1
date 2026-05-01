@@ -32,6 +32,7 @@ app.use((req, res) => {
 
 if (!process.env.VERCEL) {
   app.listen(port, () => {
+    console.log("Gemini Key:", process.env.GEMINI_API_KEY);
     console.log(`Server running on http://localhost:${port}`);
   });
 }
