@@ -16,8 +16,7 @@ router.post("/message", requireAuth, async (req, res) => {
 
     const response = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" ,
-               "Authorization": `Bearer ${process.env.GEMINI_API_KEY}`},
+      headers: { "Content-Type": "application/json" , Authorization: `Bearer ${process.env.GEMINI_API_KEY}`},
       body: JSON.stringify({
         system_instruction: {
           parts: [{ text: SYSTEM_PROMPT }]
