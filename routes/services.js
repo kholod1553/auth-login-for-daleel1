@@ -85,7 +85,7 @@ router.post("/", requireAuth, async (req, res) => {
   if (!payload.name || payload.price === undefined || payload.price === null) {
     return res.status(400).json({ error: "Name/title and price are required" });
   }
-  const { data, error } = await req.supabase.from("services").insert([payload]).select().maybeSingle();
+  const { data, error } = await supabase.from("services").insert([payload]).select().maybeSingle();
   if (error) {
     const f = formatWriteError(error);
     return res.status(f.status).json(f.body);
@@ -96,7 +96,7 @@ router.post("/", requireAuth, async (req, res) => {
 // ── PUT static-ish first ───────────────────────────
 router.put("/:id/approve", requireAuth, async (req, res) => {
   const { id } = req.params;
-  const { data, error } = await req.supabase
+  const { data, error } = await supabase
     .from("services").update({ is_public: true, status: "approved" })
     .eq("id", id).select().maybeSingle();
   if (error) return res.status(400).json({ error: error.message });
@@ -106,7 +106,7 @@ router.put("/:id/approve", requireAuth, async (req, res) => {
 
 router.put("/:id/reject", requireAuth, async (req, res) => {
   const { id } = req.params;
-  const { data, error } = await req.supabase
+  const { data, error } = await supabase
     .from("services").update({ is_public: false, status: "rejected" })
     .eq("id", id).select().maybeSingle();
   if (error) return res.status(400).json({ error: error.message });
@@ -120,7 +120,7 @@ router.put("/:id", requireAuth, async (req, res) => {
   if (Object.keys(updates).length === 0) {
     return res.status(400).json({ error: "At least one field is required for update" });
   }
-  const { data, error } = await req.supabase
+  const { data, error } = await supabase
     .from("services").update(updates).eq("id", id).select().maybeSingle();
   if (error) {
     const f = formatWriteError(error);
