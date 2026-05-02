@@ -30,9 +30,7 @@ const formatWriteError = (error) => {
   if (error?.message?.includes("row-level security policy")) {
     return {
       status: 403,
-      body: {
-        error: "Supabase RLS is blocking writes to services. Apply the SQL in supabase/setup.sql to enable authenticated CRUD.",
-      },
+      body: { error: "Supabase RLS is blocking writes to services." },
     };
   }
   return {
@@ -41,7 +39,7 @@ const formatWriteError = (error) => {
   };
 };
 
-// ✅ Static routes FIRST
+// ── Static GET routes ──────────────────────────────
 router.get("/", async (req, res) => {
   const { data, error } = await supabase.from("services").select("*").eq("is_public", true);
   if (error || !data?.length) return res.json(FALLBACK_SERVICES);
@@ -51,8 +49,8 @@ router.get("/", async (req, res) => {
 router.get("/my-services", requireAuth, async (req, res) => {
   const { data, error } = await req.supabase.from("services").select("*");
   if (error) {
-    const formatted = formatWriteError(error);
-    return res.status(formatted.status).json(formatted.body);
+    const f = formatWriteError(error);
+    return res.status(f.status).json(f.body);
   }
   res.json((data || []).map(normalizeService));
 });
@@ -73,15 +71,14 @@ router.get("/search", async (req, res) => {
   const { q } = req.query;
   if (!q) return res.status(400).json({ error: "Search query is required" });
   const { data, error } = await supabase
-    .from("services")
-    .select("*")
-    .eq("is_public", true)
+    .from("services").select("*").eq("is_public", true)
     .or(`name.ilike.%${q}%,description.ilike.%${q}%`);
   if (error) return res.status(400).json({ error: error.message });
   if (!data?.length) return res.status(404).json({ error: "لا توجد نتائج" });
   res.json(data.map(normalizeService));
 });
 
+// ── POST ───────────────────────────────────────────
 router.post("/", requireAuth, async (req, res) => {
   const payload = toWritePayload(req.body);
   payload.user_id = req.user.id;
@@ -90,20 +87,18 @@ router.post("/", requireAuth, async (req, res) => {
   }
   const { data, error } = await req.supabase.from("services").insert([payload]).select().maybeSingle();
   if (error) {
-    const formatted = formatWriteError(error);
-    return res.status(formatted.status).json(formatted.body);
+    const f = formatWriteError(error);
+    return res.status(f.status).json(f.body);
   }
   res.status(201).json(normalizeService(data));
 });
 
+// ── PUT static-ish first ───────────────────────────
 router.put("/:id/approve", requireAuth, async (req, res) => {
   const { id } = req.params;
   const { data, error } = await req.supabase
-    .from("services")
-    .update({ is_public: true, status: "approved" })
-    .eq("id", id)
-    .select()
-    .maybeSingle();
+    .from("services").update({ is_public: true, status: "approved" })
+    .eq("id", id).select().maybeSingle();
   if (error) return res.status(400).json({ error: error.message });
   if (!data) return res.status(404).json({ error: "Service not found" });
   res.json({ message: "Service approved", service: data });
@@ -112,11 +107,8 @@ router.put("/:id/approve", requireAuth, async (req, res) => {
 router.put("/:id/reject", requireAuth, async (req, res) => {
   const { id } = req.params;
   const { data, error } = await req.supabase
-    .from("services")
-    .update({ is_public: false, status: "rejected" })
-    .eq("id", id)
-    .select()
-    .maybeSingle();
+    .from("services").update({ is_public: false, status: "rejected" })
+    .eq("id", id).select().maybeSingle();
   if (error) return res.status(400).json({ error: error.message });
   if (!data) return res.status(404).json({ error: "Service not found" });
   res.json({ message: "Service rejected", service: data });
@@ -128,35 +120,34 @@ router.put("/:id", requireAuth, async (req, res) => {
   if (Object.keys(updates).length === 0) {
     return res.status(400).json({ error: "At least one field is required for update" });
   }
-  const { data, error } = await req.supabase.from("services").update(updates).eq("id", id).select().maybeSingle();
+  const { data, error } = await req.supabase
+    .from("services").update(updates).eq("id", id).select().maybeSingle();
   if (error) {
-    const formatted = formatWriteError(error);
-    return res.status(formatted.status).json(formatted.body);
+    const f = formatWriteError(error);
+    return res.status(f.status).json(f.body);
   }
   if (!data) return res.status(404).json({ error: "Service not found" });
   res.json({ message: "Service updated successfully", updated: normalizeService(data) });
 });
 
+// ── DELETE ─────────────────────────────────────────
 router.delete("/:id", requireAuth, async (req, res) => {
   const { id } = req.params;
-  const { data, error } = await req.supabase.from("services").delete().eq("id", id).select("id").maybeSingle();
+  const { data, error } = await req.supabase
+    .from("services").delete().eq("id", id).select("id").maybeSingle();
   if (error) {
-    const formatted = formatWriteError(error);
-    return res.status(formatted.status).json(formatted.body);
+    const f = formatWriteError(error);
+    return res.status(f.status).json(f.body);
   }
   if (!data) return res.status(404).json({ error: "Service not found" });
   res.json({ message: "Service deleted successfully", deletedId: data.id });
 });
 
-// ✅ Dynamic route LAST
+// ── Dynamic GET last ───────────────────────────────
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   const { data, error } = await supabase
-    .from("services")
-    .select("*")
-    .eq("id", id)
-    .eq("is_public", true)
-    .maybeSingle();
+    .from("services").select("*").eq("id", id).eq("is_public", true).maybeSingle();
   if (error) return res.status(400).json({ error: error.message });
   if (!data) return res.status(404).json({ error: "Service not found" });
   res.json(normalizeService(data));
