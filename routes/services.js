@@ -201,5 +201,19 @@ router.get("/search", async (req, res) => {
 
   res.json(data.map(normalizeService));
 });
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
 
+  const { data, error } = await supabase
+    .from("services")
+    .select("*")
+    .eq("id", id)
+    .eq("is_public", true)
+    .maybeSingle();
+
+  if (error) return res.status(400).json({ error: error.message });
+  if (!data) return res.status(404).json({ error: "Service not found" });
+
+  res.json(normalizeService(data));
+});
 export default router;
