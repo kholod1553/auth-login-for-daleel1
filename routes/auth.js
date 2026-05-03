@@ -56,27 +56,29 @@ router.post("/logout", requireAuth, async (req, res) => {
   if (error) return res.status(400).json({ error: error.message });
   res.json({ message: "تم تسجيل الخروج بنجاح" });
 });
-
 router.post("/verify-otp", async (req, res) => {
   const { email, token, type } = req.body;
-  const { data, error } = await supabase.auth.verifyOtp({
-    email,
-    token,
-    type,
-  });
+
+  if (!email || !token || !type) { // ← تحقق الأول
+    return res.status(400).json({ error: "email, token, and type are required" });
+  }
+
+  const { data, error } = await supabase.auth.verifyOtp({ email, token, type });
   if (error) return res.status(400).json({ error: error.message });
   res.json(data);
 });
-
 router.post("/resend-otp", async (req, res) => {
-  const { email } = req.body;
+  const { email, type } = req.body; // type
+
   const { error } = await supabase.auth.resend({
-    type: "signup",
+    type: type || "signup", 
     email,
   });
+
   if (error) return res.status(400).json({ error: error.message });
   res.json({ message: "تم إرسال الكود بنجاح" });
 });
+
 
 router.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
