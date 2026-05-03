@@ -68,11 +68,13 @@ router.post("/verify-otp", async (req, res) => {
   res.json(data);
 });
 router.post("/resend-otp", async (req, res) => {
-  const { email, type } = req.body; // type
+  const { email, type } = req.body;
 
-  const { error } = await supabase.auth.resend({
-    type: type || "signup", 
+  const { error } = await supabase.auth.signInWithOtp({
     email,
+    options: {
+      shouldCreateUser: false,
+    }
   });
 
   if (error) return res.status(400).json({ error: error.message });
