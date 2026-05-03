@@ -1,11 +1,10 @@
 import express from "express";
 import { requireAuth } from "../middleware/auth.js";
+
 const router = express.Router();
+
 router.get("/me", requireAuth, (req, res) => {
-  res.json(req.user);
-});
-router.get("/me", requireAuth, (req, res) => {
-  const user = req.user
+  const user = req.user;
   res.json({
     id:        user.id,
     name:      user.user_metadata?.name       || '',
@@ -13,26 +12,27 @@ router.get("/me", requireAuth, (req, res) => {
     phone:     user.user_metadata?.phone      || '',
     avatar:    user.user_metadata?.avatar_url || '',
     createdAt: user.created_at
-  })
+  });
 });
-  if (error) return res.status(400).json({ error: error.message });
-  res.json(data);
-});
+
+//   if (error) return res.status(400).json({ error: error.message });
+//   res.json(data);
+
 router.put("/me/avatar", requireAuth, async (req, res) => {
   const { base64, mimeType } = req.body;
   if (!base64 || !mimeType) {
     return res.status(400).json({ error: "base64 and mimeType are required" });
   }
   const buffer = Buffer.from(base64, "base64");
-  const fileName = `${[req.user.id](http://req.user.id)}.${mimeType.split("/")[1]}`;
-  const { error: uploadError } = await [req.supabase.storage](http://req.supabase.storage)
+  const fileName = `${req.user.id}.${mimeType.split("/")[1]}`;
+  const { error: uploadError } = await req.supabase.storage
     .from("avatars")
     .upload(fileName, buffer, {
       contentType: mimeType,
       upsert: true,
     });
   if (uploadError) return res.status(400).json({ error: uploadError.message });
-  const { data: urlData } = [req.supabase.storage](http://req.supabase.storage)
+  const { data: urlData } = req.supabase.storage
     .from("avatars")
     .getPublicUrl(fileName);
   const { error: updateError } = await req.supabase.auth.updateUser({
@@ -41,4 +41,5 @@ router.put("/me/avatar", requireAuth, async (req, res) => {
   if (updateError) return res.status(400).json({ error: updateError.message });
   res.json({ avatar_url: urlData.publicUrl });
 });
+
 export default router;
