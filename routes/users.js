@@ -4,7 +4,15 @@ import { requireAuth } from "../middleware/auth.js";
 const router = express.Router();
 
 router.get("/me", requireAuth, (req, res) => {
-  res.json(req.user);
+  const user = req.user
+  res.json({
+    id:        user.id,
+    name:      user.user_metadata?.name       || '',
+    email:     user.email,
+    phone:     user.user_metadata?.phone      || '',
+    avatar:    user.user_metadata?.avatar_url || '',
+    createdAt: user.created_at
+  })
 });
 
 router.put("/me", requireAuth, async (req, res) => {
