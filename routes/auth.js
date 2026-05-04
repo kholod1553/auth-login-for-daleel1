@@ -111,7 +111,7 @@ router.post("/resend-otp", async (req, res) => {
     res.json({ message: "تم إرسال الكود بنجاح" });
 });
 
-// ======= OTP Routes (Nodemailer - المشروع القديم) =======
+// ======= OTP Routes (Nodemailer) =======
 
 // Send OTP via Email (Nodemailer)
 router.post("/send-otp-email", async (req, res) => {
@@ -122,4 +122,4 @@ router.post("/send-otp-email", async (req, res) => {
         const { data: users, error } = await supabase
             .from("users")
             .select("*")
-            .eq("email", email
+            .eq("email", email)}}
