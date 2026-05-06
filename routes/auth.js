@@ -60,6 +60,8 @@ router.post("/login", async (req, res) => {
             password,
         });
         if (error) return res.status(400).json({ error: error.message });
+        console.log("session:", req.session);
+        console.log("data.user:", data.user);
         req.session.user = {
             id: data.user.id,
             email: data.user.email,

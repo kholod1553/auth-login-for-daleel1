@@ -14,7 +14,7 @@ const app = express();
 const port = Number(process.env.PORT || 3000);
 
 app.use(express.json());
-
+app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
 app.use("/auth", authRoutes);
 app.use("/services", servicesRoutes);
 app.use("/categories", categoriesRoutes);
@@ -22,7 +22,7 @@ app.use("/users", usersRoutes);
 app.use("/votes", votesRouter);
 app.use("/settings", settingsRoutes);
 app.use("/chat", chatRoutes);
-app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
+
 
 app.get("/", (req, res) => {
   res.json({ message: "Daleel API is running" });
