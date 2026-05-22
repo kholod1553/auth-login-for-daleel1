@@ -1,44 +1,87 @@
 import express from "express";
-import { requireAuth } from "../middleware/auth.js";
-import { SYSTEM_PROMPT } from "../data/prompts.js";
+import { generateChatReply } from "../lib/chatService.js";
+import {
+  cleanupOldChatMessages,
+  getRecentChatHistory,
+  saveChatExchange,
+} from "../lib/chatHistoryStore.js";
 
 const router = express.Router();
+const DEFAULT_HISTORY_LIMIT = 12;
 
-router.post("/message", requireAuth, async (req, res) => {
-  const { message } = req.body;
+const extractMessage = (req) =>
+  req.body?.message || req.body?.query || req.query?.message || req.query?.query;
 
-  if (!message) {
+const extractSessionId = (req) =>
+  req.body?.sessionId ||
+  req.query?.sessionId ||
+  req.headers["x-chat-session-id"] ||
+  null;
+
+const mapHistoryRows = (rows) =>
+  rows.map((item) => ({
+    role: item.sender === "user" ? "user" : "assistant",
+    content: item.content,
+    timestamp: item.created_at,
+    matchedType: item.matched_type || null,
+  }));
+
+const buildResponsePayload = (reply, sessionId) => ({
+  ...reply,
+  reply: reply.answer,
+  sessionId,
+});
+
+const handleChatReply = async (req, res) => {
+  const message = extractMessage(req);
+  const sessionId = extractSessionId(req);
+
+  if (!message || !String(message).trim()) {
     return res.status(400).json({ error: "Message is required" });
   }
-   console.log("GEMINI KEY:", process.env.GEMINI_API_KEY);
-  try {
-    const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyBz6fpp-EDbKbgiMdXvkwp8Ogxgb_QyGWI";
 
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json"},
-      body: JSON.stringify({
-        system_instruction: {
-          parts: [{ text: SYSTEM_PROMPT }]
-        },
-        contents: [{
-          parts: [{ text: message }]
-        }]
-      }),
+  const safeMessage = String(message).trim();
+
+  await cleanupOldChatMessages();
+  const historyRows = await getRecentChatHistory(sessionId, DEFAULT_HISTORY_LIMIT);
+  const reply = await generateChatReply(safeMessage, {
+    history: mapHistoryRows(historyRows),
+  });
+
+  await saveChatExchange({
+    sessionId,
+    userMessage: safeMessage,
+    botMessage: reply,
+    provider: reply.provider,
+    matchedType: reply.matchedType,
+  });
+
+  res.json(buildResponsePayload(reply, sessionId));
+};
+
+const handleChatHistoryOrReply = async (req, res) => {
+  const message = extractMessage(req);
+  const sessionId = extractSessionId(req);
+
+  await cleanupOldChatMessages();
+
+  if (!message || !String(message).trim()) {
+    const historyRows = await getRecentChatHistory(
+      sessionId,
+      DEFAULT_HISTORY_LIMIT * 2,
+    );
+    return res.json({
+      sessionId,
+      messages: historyRows,
     });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      return res.status(400).json({ error: data.error?.message || "Gemini error" });
-    }
-
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    res.json({ reply });
-
-  } catch (err) {
-    res.status(500).json({ error: err.message });
   }
-});
+
+  return handleChatReply(req, res);
+};
+
+router.post("/", handleChatReply);
+router.post("/message", handleChatReply);
+router.get("/", handleChatHistoryOrReply);
+router.get("/message", handleChatHistoryOrReply);
 
 export default router;
