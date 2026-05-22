@@ -7,14 +7,39 @@ import usersRoutes from "./routes/users.js";
 import votesRouter from "./routes/votes.js";
 import settingsRoutes from "./routes/settings.js";
 import chatRoutes from "./routes/chat.js";
-import session from 'express-session';
+import session from "express-session";
+
 dotenv.config();
 
 const app = express();
 const port = Number(process.env.PORT || 3000);
 
+app.use((req, res, next) => {
+  const allowedOrigin = process.env.FRONTEND_ORIGIN || "*";
+
+  res.header("Access-Control-Allow-Origin", allowedOrigin);
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+  );
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+
+  next();
+});
+
 app.use(express.json());
-app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "daleel-dev-session-secret",
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
+
 app.use("/auth", authRoutes);
 app.use("/services", servicesRoutes);
 app.use("/categories", categoriesRoutes);
@@ -23,9 +48,20 @@ app.use("/votes", votesRouter);
 app.use("/settings", settingsRoutes);
 app.use("/chat", chatRoutes);
 
-
 app.get("/", (req, res) => {
-  res.json({ message: "Daleel API is running" });
+  res.json({
+    message: "Daleel API is running",
+    endpoints: [
+      "/auth",
+      "/services",
+      "/categories",
+      "/users",
+      "/votes",
+      "/settings",
+      "/chat",
+      "/chat/message",
+    ],
+  });
 });
 
 app.use((req, res) => {
@@ -34,7 +70,6 @@ app.use((req, res) => {
 
 if (!process.env.VERCEL) {
   app.listen(port, () => {
-    console.log("Gemini Key:", process.env.GEMINI_API_KEY);
     console.log(`Server running on http://localhost:${port}`);
   });
 }

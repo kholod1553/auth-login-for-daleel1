@@ -1,0 +1,2718 @@
+{
+  "metadata": {
+    "guide_name": "الدليل الشامل الموسع للخدمات الحكومية الإلكترونية",
+    "country": "مصر",
+    "last_updated": "2026-02-06",
+    "version": "3.0",
+    "total_categories": 32,
+    "total_services": 450,
+    "language": "ar"
+  },
+  "main_platforms": [
+    {
+      "id": "egypt_digital",
+      "name": "منصة مصر الرقمية",
+      "name_en": "Egypt Digital Platform",
+      "website": "https://digital.gov.eg",
+      "mobile_app": {
+        "android": true,
+        "ios": true
+      },
+      "hotline": "15999",
+      "email": "[email protected]",
+      "users_count": "9000000+"
+    },
+    {
+      "id": "egypt_gov",
+      "name": "بوابة الحكومة المصرية",
+      "name_en": "Egypt Government Portal",
+      "website": "https://www.egypt.gov.eg"
+    },
+    {
+      "id": "public_services",
+      "name": "دليل الخدمات العامة",
+      "name_en": "Public Services Directory",
+      "website": "https://www.psm.gov.eg"
+    },
+    {
+      "id": "khadamat_misr",
+      "name": "مراكز خدمات مصر",
+      "name_en": "Egypt Services Centers",
+      "website": "https://www.khadamatmisr.gov.eg"
+    }
+  ],
+  "categories": [
+    {
+      "id": "civil_status",
+      "name": "الأحوال المدنية والسجل المدني",
+      "name_en": "Civil Status and Civil Registry",
+      "authority": {
+        "name": "مصلحة الأحوال المدنية - وزارة الداخلية",
+        "name_en": "Civil Status Authority - Ministry of Interior",
+        "website": "https://www.moi.gov.eg"
+      },
+      "services": [
+        {
+          "id": "birth_certificate",
+          "name": "استخراج شهادة ميلاد كمبيوتر",
+          "name_en": "Birth Certificate Issuance",
+          "description": "استخراج شهادة ميلاد رسمية للمواليد الجدد",
+          "required_documents": [
+            "بطاقة الرقم القومي للأب والأم",
+            "شهادة ميلاد المستشفى أو إقرار الولادة",
+            "عقد الزواج أو إثبات الزوجية"
+          ],
+          "fees": {
+            "min": 20,
+            "max": 50,
+            "currency": "EGP",
+            "notes": "حسب التوقيت"
+          },
+          "duration": {
+            "min_days": 0,
+            "max_days": 1,
+            "description": "فوري - يوم واحد"
+          },
+          "submission_method": [
+            "إلكتروني عبر مصر الرقمية",
+            "مكاتب الأحوال المدنية"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "national_id_first_time",
+          "name": "استخراج بطاقة الرقم القومي لأول مرة",
+          "name_en": "National ID Card - First Time",
+          "description": "استخراج البطاقة الشخصية عند بلوغ 16 عاماً",
+          "required_documents": [
+            "شهادة الميلاد الأصلية",
+            "6 صور شخصية حديثة (4×6)",
+            "إيصال كهرباء أو غاز باسم الأب أو ولي الأمر",
+            "نموذج 6 جند للذكور",
+            "طلب استخراج بطاقة (يتم الحصول عليه من المكتب)"
+          ],
+          "fees": {
+            "amount": 50,
+            "currency": "EGP"
+          },
+          "duration": {
+            "min_days": 7,
+            "max_days": 30,
+            "description": "من أسبوع إلى شهر"
+          },
+          "submission_method": [
+            "مكتب السجل المدني بالمحافظة"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "national_id_renewal",
+          "name": "تجديد بطاقة الرقم القومي",
+          "name_en": "National ID Card Renewal",
+          "description": "تجديد البطاقة عند انتهاء صلاحيتها أو تغيير البيانات",
+          "required_documents": [
+            "البطاقة القديمة",
+            "4 صور شخصية حديثة",
+            "إيصال مرافق حديث (كهرباء أو غاز)"
+          ],
+          "fees": {
+            "min": 30,
+            "max": 40,
+            "currency": "EGP"
+          },
+          "duration": {
+            "min_days": 7,
+            "max_days": 14,
+            "description": "من أسبوع إلى أسبوعين"
+          },
+          "submission_method": [
+            "مكتب السجل المدني"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "national_id_replacement",
+          "name": "بدل فاقد أو تالف للبطاقة الشخصية",
+          "name_en": "Lost or Damaged ID Replacement",
+          "description": "استخراج بطاقة بديلة في حالة الفقد أو التلف",
+          "required_documents": [
+            "محضر فقد من الشرطة (في حالة الفقد)",
+            "البطاقة التالفة (في حالة التلف)",
+            "4 صور شخصية حديثة",
+            "إيصال مرافق"
+          ],
+          "fees": {
+            "min": 70,
+            "max": 100,
+            "currency": "EGP"
+          },
+          "duration": {
+            "min_days": 7,
+            "max_days": 14,
+            "description": "من أسبوع إلى أسبوعين"
+          },
+          "submission_method": [
+            "مكتب السجل المدني"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "death_certificate",
+          "name": "استخراج شهادة وفاة",
+          "name_en": "Death Certificate",
+          "description": "استخراج شهادة وفاة رسمية",
+          "required_documents": [
+            "تقرير طبي بالوفاة من المستشفى",
+            "بطاقة الرقم القومي للمتوفى",
+            "بطاقة الرقم القومي لمقدم الطلب"
+          ],
+          "fees": {
+            "min": 10,
+            "max": 20,
+            "currency": "EGP"
+          },
+          "duration": {
+            "min_days": 0,
+            "max_days": 0,
+            "description": "فوري"
+          },
+          "submission_method": [
+            "مكتب الصحة أو السجل المدني"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "family_registry",
+          "name": "استخراج قيد عائلي / مستخرج قيد عائلي",
+          "name_en": "Family Registry Certificate",
+          "description": "قيد عائلي يوضح جميع أفراد الأسرة",
+          "required_documents": [
+            "بطاقة الرقم القومي",
+            "شهادة الميلاد"
+          ],
+          "fees": {
+            "min": 10,
+            "max": 30,
+            "currency": "EGP"
+          },
+          "duration": {
+            "min_days": 1,
+            "max_days": 3,
+            "description": "من يوم إلى 3 أيام"
+          },
+          "submission_method": [
+            "إلكتروني عبر مصر الرقمية",
+            "مكاتب الأحوال المدنية"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "birth_certificate_correction",
+          "name": "تصحيح بيانات شهادة الميلاد",
+          "name_en": "Birth Certificate Data Correction",
+          "description": "تصحيح الاسم أو تاريخ الميلاد",
+          "required_documents": [
+            "شهادة الميلاد الأصلية",
+            "المستندات المؤيدة للتصحيح",
+            "بطاقة الرقم القومي للوالدين"
+          ],
+          "fees": {
+            "amount": null,
+            "currency": "EGP",
+            "notes": "حسب نوع التصحيح"
+          },
+          "duration": {
+            "min_days": 7,
+            "max_days": 30,
+            "description": "من أسبوع إلى شهر"
+          },
+          "submission_method": [
+            "مكتب السجل المدني (قد تتطلب موافقة محكمة)"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "marital_status_certificate",
+          "name": "شهادة الحالة الاجتماعية",
+          "name_en": "Marital Status Certificate",
+          "description": "شهادة توضح الحالة (أعزب/متزوج/أرمل/مطلق)",
+          "required_documents": [
+            "بطاقة الرقم القومي",
+            "القيد العائلي"
+          ],
+          "fees": {
+            "min": 10,
+            "max": 20,
+            "currency": "EGP"
+          },
+          "duration": {
+            "min_days": 0,
+            "max_days": 0,
+            "description": "فوري"
+          },
+          "submission_method": [
+            "مكتب السجل المدني"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "criminal_record",
+          "name": "شهادة عدم المحكومية (فيش وتشبيه)",
+          "name_en": "Criminal Record Certificate",
+          "description": "شهادة تفيد بعدم وجود سوابق جنائية",
+          "required_documents": [
+            "بطاقة الرقم القومي",
+            "طلب رسمي"
+          ],
+          "fees": {
+            "amount": 15,
+            "currency": "EGP"
+          },
+          "duration": {
+            "min_days": 3,
+            "max_days": 7,
+            "description": "من 3 إلى 7 أيام"
+          },
+          "submission_method": [
+            "مديرية الأمن بالمحافظة"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "supply_cards",
+      "name": "التموين والبطاقات التموينية",
+      "name_en": "Supply and Ration Cards",
+      "authority": {
+        "name": "وزارة التموين والتجارة الداخلية",
+        "name_en": "Ministry of Supply and Internal Trade",
+        "website": "https://tamwin.com.eg",
+        "hotline": "135"
+      },
+      "services": [
+        {
+          "id": "add_newborn_supply_card",
+          "name": "إضافة مواليد على البطاقة التموينية",
+          "name_en": "Add Newborn to Ration Card",
+          "description": "إضافة المواليد الجدد على البطاقة التموينية للأسرة",
+          "required_documents": [
+            "شهادة ميلاد المولود كمبيوتر",
+            "بطاقة الرقم القومي لرب الأسرة",
+            "البطاقة التموينية الأصلية"
+          ],
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          },
+          "duration": {
+            "min_days": 0,
+            "max_days": 3,
+            "description": "فوري عبر الموقع، 3 أيام في المكتب"
+          },
+          "submission_method": [
+            "إلكتروني عبر موقع دعم مصر",
+            "مكاتب التموين"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "new_supply_card",
+          "name": "إصدار بطاقة تموينية جديدة",
+          "name_en": "New Ration Card Issuance",
+          "description": "إصدار بطاقة تموين جديدة للأسرة",
+          "required_documents": [
+            "طلب إصدار بطاقة تموينية",
+            "بطاقات الرقم القومي لجميع أفراد الأسرة",
+            "إيصال مرافق حديث (كهرباء أو غاز)",
+            "إثبات محل الإقامة"
+          ],
+          "fees": {
+            "amount": null,
+            "currency": "EGP",
+            "notes": "حسب التقييم الاجتماعي"
+          },
+          "duration": {
+            "min_days": 7,
+            "max_days": 30,
+            "description": "من أسبوع إلى شهر"
+          },
+          "submission_method": [
+            "مكاتب التموين"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "supply_card_separation",
+          "name": "الفصل الاجتماعي (استقلال فرد من الأسرة)",
+          "name_en": "Social Separation - Independent Card",
+          "description": "فصل فرد من الأسرة على بطاقة مستقلة",
+          "required_documents": [
+            "طلب فصل اجتماعي",
+            "بطاقة الرقم القومي",
+            "ما يفيد الزواج أو الاستقلال (عقد زواج، إيجار مستقل)"
+          ],
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          },
+          "duration": {
+            "min_days": 7,
+            "max_days": 60,
+            "description": "من أسبوع إلى شهرين"
+          },
+          "submission_method": [
+            "إلكتروني عبر دعم مصر",
+            "مكاتب التموين"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "supply_card_replacement",
+          "name": "بدل فاقد أو تالف للبطاقة التموينية",
+          "name_en": "Lost or Damaged Ration Card Replacement",
+          "description": "إصدار بدل للبطاقة المفقودة أو التالفة",
+          "required_documents": [
+            "بطاقة الرقم القومي لرب الأسرة",
+            "محضر فقد من الشرطة (في حالة الفقد)",
+            "البطاقة التالفة (في حالة التلف)"
+          ],
+          "fees": {
+            "amount": null,
+            "currency": "EGP",
+            "notes": "رسوم رمزية"
+          },
+          "duration": {
+            "min_days": 7,
+            "max_days": 30,
+            "description": "من أسبوع إلى شهر"
+          },
+          "submission_method": [
+            "مكاتب التموين"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "remove_deceased_supply_card",
+          "name": "حذف متوفى من البطاقة التموينية",
+          "name_en": "Remove Deceased from Ration Card",
+          "description": "حذف المتوفى من البطاقة وإعادة التقييم",
+          "required_documents": [
+            "شهادة وفاة رسمية",
+            "بطاقة الرقم القومي لرب الأسرة",
+            "البطاقة التموينية"
+          ],
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          },
+          "duration": {
+            "min_days": 0,
+            "max_days": 0,
+            "description": "فوري"
+          },
+          "submission_method": [
+            "إلكتروني عبر دعم مصر",
+            "مكاتب التموين"
+          ],
+          "is_online": true
+        }
+      ]
+    },
+    {
+      "id": "education",
+      "name": "التعليم والجامعات",
+      "name_en": "Education and Universities",
+      "authority": {
+        "name": "وزارة التربية والتعليم والتعليم الفني",
+        "name_en": "Ministry of Education and Technical Education",
+        "website": "https://www.moe.gov.eg"
+      },
+      "services": [
+        {
+          "id": "coordinate_office",
+          "name": "مكتب التنسيق (الثانوية العامة)",
+          "name_en": "Coordination Office - High School",
+          "description": "التقديم للجامعات بعد الثانوية العامة",
+          "website": "https://tansik.egypt.gov.eg",
+          "required_documents": [
+            "شهادة الثانوية العامة",
+            "بطاقة الرقم القومي",
+            "شهادة الميلاد"
+          ],
+          "fees": {
+            "amount": null,
+            "currency": "EGP",
+            "notes": "رسوم التقديم حسب المرحلة"
+          },
+          "submission_method": [
+            "إلكترونياً عبر موقع التنسيق"
+          ],
+          "is_online": true,
+          "timing": "سنوياً في يوليو/أغسطس"
+        },
+        {
+          "id": "primary_school_admission",
+          "name": "التقديم للصف الأول الابتدائي",
+          "name_en": "Primary School Admission",
+          "description": "تقديم الأطفال للصف الأول الابتدائي",
+          "required_documents": [
+            "شهادة ميلاد الطفل الأصلية",
+            "بطاقة الرقم القومي لولي الأمر",
+            "6 صور شخصية للطفل",
+            "إيصال مرافق حديث"
+          ],
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          },
+          "submission_method": [
+            "إلكترونياً عبر موقع الوزارة",
+            "المدرسة مباشرة"
+          ],
+          "is_online": true,
+          "age_requirement": "6 سنوات في 1 أكتوبر",
+          "timing": "سنوياً في يونيو/يوليو"
+        },
+        {
+          "id": "kg_admission",
+          "name": "التقديم لرياض الأطفال (KG)",
+          "name_en": "Kindergarten Admission",
+          "description": "تقديم الأطفال لمرحلة رياض الأطفال",
+          "required_documents": [
+            "شهادة ميلاد الطفل",
+            "بطاقة الرقم القومي لولي الأمر",
+            "صور شخصية للطفل",
+            "إيصال مرافق"
+          ],
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          },
+          "submission_method": [
+            "إلكترونياً عبر موقع الوزارة",
+            "المدرسة"
+          ],
+          "is_online": true,
+          "timing": "سنوياً في يونيو/يوليو"
+        },
+        {
+          "id": "transfer_between_schools",
+          "name": "نقل الطالب بين المدارس",
+          "name_en": "Student Transfer Between Schools",
+          "description": "نقل الطالب من مدرسة لأخرى",
+          "required_documents": [
+            "طلب نقل رسمي",
+            "موافقة المدرسة المنقول إليها",
+            "بطاقة الرقم القومي لولي الأمر"
+          ],
+          "fees": {
+            "amount": null,
+            "currency": "EGP"
+          },
+          "submission_method": [
+            "المدرسة والإدارة التعليمية"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "exam_results",
+          "name": "الاستعلام عن نتائج الامتحانات",
+          "name_en": "Exam Results Inquiry",
+          "description": "الاستعلام عن نتائج الامتحانات الدراسية",
+          "website": "https://www.moe.gov.eg",
+          "submission_method": [
+            "إلكترونياً عبر موقع الوزارة",
+            "برقم الجلوس"
+          ],
+          "is_online": true,
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          }
+        },
+        {
+          "id": "certificate_equivalency",
+          "name": "معادلة الشهادات الأجنبية",
+          "name_en": "Foreign Certificate Equivalency",
+          "description": "معادلة الشهادات الدراسية الأجنبية بالمصرية",
+          "required_documents": [
+            "الشهادة الأصلية موثقة من الخارجية المصرية",
+            "بطاقة الرقم القومي",
+            "شهادة الميلاد"
+          ],
+          "submission_method": [
+            "الإدارة المركزية للمعادلات"
+          ],
+          "is_online": false,
+          "duration": {
+            "min_days": 30,
+            "max_days": 90,
+            "description": "من شهر إلى 3 أشهر"
+          }
+        }
+      ]
+    },
+    {
+      "id": "higher_education",
+      "name": "التعليم العالي",
+      "name_en": "Higher Education",
+      "authority": {
+        "name": "وزارة التعليم العالي والبحث العلمي",
+        "name_en": "Ministry of Higher Education and Scientific Research",
+        "website": "https://www.mohe.gov.eg"
+      },
+      "services": [
+        {
+          "id": "university_degrees_equivalency",
+          "name": "معادلة الشهادات الجامعية",
+          "name_en": "University Degree Equivalency",
+          "description": "معادلة الشهادات الجامعية الأجنبية",
+          "authority_sub": "المجلس الأعلى للجامعات",
+          "required_documents": [
+            "الشهادة الجامعية موثقة",
+            "كشف الدرجات موثق",
+            "بطاقة الرقم القومي"
+          ],
+          "submission_method": [
+            "المجلس الأعلى للجامعات"
+          ],
+          "is_online": false,
+          "duration": {
+            "min_days": 60,
+            "max_days": 180,
+            "description": "من شهرين إلى 6 أشهر"
+          }
+        },
+        {
+          "id": "student_union_membership",
+          "name": "عضوية اتحاد الطلاب",
+          "name_en": "Student Union Membership",
+          "description": "الاشتراك في اتحاد طلاب الجامعة",
+          "submission_method": [
+            "الكلية/الجامعة"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "passports",
+      "name": "جوازات السفر",
+      "name_en": "Passports",
+      "authority": {
+        "name": "مصلحة الجوازات والهجرة والجنسية - وزارة الداخلية",
+        "name_en": "Passport, Immigration and Nationality Administration",
+        "website": "https://www.passports.gov.eg",
+        "hotline": "19296"
+      },
+      "services": [
+        {
+          "id": "passport_first_time",
+          "name": "استخراج جواز سفر لأول مرة",
+          "name_en": "First-Time Passport Issuance",
+          "description": "استخراج جواز السفر المصري للمرة الأولى",
+          "required_documents": [
+            "بطاقة الرقم القومي سارية",
+            "شهادة الميلاد الأصلية",
+            "موافقة الأمن (تلقائية)",
+            "صور شخصية (حسب المواصفات)"
+          ],
+          "fees": {
+            "options": [
+              {
+                "type": "عادي - 7 سنوات",
+                "amount": 500,
+                "currency": "EGP"
+              },
+              {
+                "type": "مميز - 7 سنوات",
+                "amount": 1000,
+                "currency": "EGP"
+              }
+            ]
+          },
+          "duration": {
+            "min_days": 7,
+            "max_days": 21,
+            "description": "من أسبوع إلى 3 أسابيع"
+          },
+          "submission_method": [
+            "إلكترونياً عبر الموقع مع الحجز",
+            "مجمع التحرير (القاهرة)",
+            "مديريات الجوازات بالمحافظات"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "passport_renewal",
+          "name": "تجديد جواز السفر",
+          "name_en": "Passport Renewal",
+          "description": "تجديد جواز السفر المنتهي أو المنتهي قريباً",
+          "required_documents": [
+            "جواز السفر القديم",
+            "بطاقة الرقم القومي سارية"
+          ],
+          "fees": {
+            "options": [
+              {
+                "type": "عادي - 7 سنوات",
+                "amount": 500,
+                "currency": "EGP"
+              },
+              {
+                "type": "مميز - 7 سنوات",
+                "amount": 1000,
+                "currency": "EGP"
+              }
+            ]
+          },
+          "duration": {
+            "min_days": 7,
+            "max_days": 21,
+            "description": "من أسبوع إلى 3 أسابيع"
+          },
+          "submission_method": [
+            "إلكترونياً عبر الموقع",
+            "مديريات الجوازات"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "passport_replacement",
+          "name": "بدل فاقد أو تالف لجواز السفر",
+          "name_en": "Lost or Damaged Passport Replacement",
+          "description": "استخراج بدل جواز في حالة الفقد أو التلف",
+          "required_documents": [
+            "محضر فقد من الشرطة (في حالة الفقد)",
+            "جواز السفر التالف (في حالة التلف)",
+            "بطاقة الرقم القومي"
+          ],
+          "fees": {
+            "amount": 1500,
+            "currency": "EGP",
+            "notes": "رسوم أعلى لبدل الفاقد"
+          },
+          "duration": {
+            "min_days": 7,
+            "max_days": 21
+          },
+          "submission_method": [
+            "مديريات الجوازات"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "passport_for_minors",
+          "name": "جواز سفر للقصر (تحت 16 سنة)",
+          "name_en": "Passport for Minors",
+          "description": "استخراج جواز سفر للأطفال تحت 16 سنة",
+          "required_documents": [
+            "شهادة ميلاد الطفل",
+            "بطاقة الرقم القومي للأبوين",
+            "موافقة الأبوين",
+            "صور شخصية للطفل"
+          ],
+          "fees": {
+            "amount": 500,
+            "currency": "EGP"
+          },
+          "submission_method": [
+            "مديريات الجوازات"
+          ],
+          "is_online": false,
+          "notes": "يتطلب حضور الطفل والأبوين"
+        },
+        {
+          "id": "exit_permit",
+          "name": "إذن سفر للقصر",
+          "name_en": "Travel Permit for Minors",
+          "description": "إذن سفر للأطفال الذين يسافرون مع أحد الوالدين فقط",
+          "required_documents": [
+            "موافقة كتابية من الطرف الآخر موثقة",
+            "جواز سفر الطفل"
+          ],
+          "fees": {
+            "amount": 100,
+            "currency": "EGP"
+          },
+          "submission_method": [
+            "مديريات الجوازات",
+            "الشهر العقاري"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "driving_licenses",
+      "name": "رخص القيادة والمرور",
+      "name_en": "Driving Licenses and Traffic",
+      "authority": {
+        "name": "الإدارة العامة للمرور - وزارة الداخلية",
+        "name_en": "Traffic Department - Ministry of Interior",
+        "website": "https://www.traffic.gov.eg"
+      },
+      "services": [
+        {
+          "id": "driving_license_first_time",
+          "name": "استخراج رخصة قيادة لأول مرة",
+          "name_en": "First-Time Driving License",
+          "description": "استخراج رخصة قيادة سيارة خاصة أو دراجة نارية",
+          "required_documents": [
+            "بطاقة الرقم القومي",
+            "شهادة فحص طبي (نظر، ضغط، سكر)",
+            "6 صور شخصية",
+            "اجتياز امتحان القيادة النظري والعملي"
+          ],
+          "fees": {
+            "amount": 500,
+            "currency": "EGP",
+            "notes": "تقريباً، شامل الفحص والامتحان"
+          },
+          "duration": {
+            "min_days": 7,
+            "max_days": 30,
+            "description": "بعد اجتياز الامتحانات"
+          },
+          "submission_method": [
+            "وحدة المرور المحلية"
+          ],
+          "is_online": false,
+          "age_requirement": "18 سنة على الأقل"
+        },
+        {
+          "id": "driving_license_renewal",
+          "name": "تجديد رخصة القيادة",
+          "name_en": "Driving License Renewal",
+          "description": "تجديد رخصة القيادة المنتهية",
+          "required_documents": [
+            "رخصة القيادة القديمة",
+            "بطاقة الرقم القومي",
+            "فحص طبي جديد",
+            "4 صور شخصية"
+          ],
+          "fees": {
+            "options": [
+              {
+                "type": "5 سنوات",
+                "amount": 200,
+                "currency": "EGP"
+              },
+              {
+                "type": "10 سنوات",
+                "amount": 300,
+                "currency": "EGP"
+              }
+            ]
+          },
+          "duration": {
+            "min_days": 1,
+            "max_days": 7
+          },
+          "submission_method": [
+            "وحدة المرور"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "driving_license_replacement",
+          "name": "بدل فاقد أو تالف لرخصة القيادة",
+          "name_en": "Lost or Damaged License Replacement",
+          "description": "استخراج بدل رخصة قيادة",
+          "required_documents": [
+            "محضر فقد (في حالة الفقد)",
+            "الرخصة التالفة (في حالة التلف)",
+            "بطاقة الرقم القومي",
+            "4 صور شخصية"
+          ],
+          "fees": {
+            "amount": 100,
+            "currency": "EGP"
+          },
+          "submission_method": [
+            "وحدة المرور"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "international_license",
+          "name": "رخصة قيادة دولية",
+          "name_en": "International Driving License",
+          "description": "استخراج رخصة قيادة دولية للسفر",
+          "required_documents": [
+            "رخصة القيادة المصرية سارية",
+            "بطاقة الرقم القومي",
+            "جواز السفر",
+            "4 صور شخصية"
+          ],
+          "fees": {
+            "amount": 150,
+            "currency": "EGP"
+          },
+          "validity": "سنة واحدة",
+          "submission_method": [
+            "نادي السيارات المصري",
+            "الإدارة العامة للمرور"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "vehicle_license",
+          "name": "ترخيص سيارة",
+          "name_en": "Vehicle Registration/License",
+          "description": "ترخيص سيارة سنوياً",
+          "required_documents": [
+            "رخصة السيارة القديمة",
+            "فحص دوري من وحدة المرور",
+            "تأمين إجباري ساري"
+          ],
+          "fees": {
+            "amount": null,
+            "currency": "EGP",
+            "notes": "حسب السعة اللترية للسيارة"
+          },
+          "submission_method": [
+            "وحدة المرور"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "traffic_violations_inquiry",
+          "name": "الاستعلام عن المخالفات المرورية",
+          "name_en": "Traffic Violations Inquiry",
+          "description": "الاستعلام عن مخالفات السيارة",
+          "submission_method": [
+            "إلكترونياً عبر موقع المرور",
+            "برقم لوحة السيارة"
+          ],
+          "is_online": true,
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          }
+        },
+        {
+          "id": "vehicle_ownership_transfer",
+          "name": "نقل ملكية سيارة",
+          "name_en": "Vehicle Ownership Transfer",
+          "description": "نقل ملكية السيارة من شخص لآخر",
+          "required_documents": [
+            "رخصة السيارة",
+            "عقد البيع موثق",
+            "بطاقات الرقم القومي للبائع والمشتري",
+            "براءة ذمة من المخالفات"
+          ],
+          "fees": {
+            "amount": null,
+            "currency": "EGP",
+            "notes": "حسب السعة اللترية"
+          },
+          "submission_method": [
+            "وحدة المرور"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "justice",
+      "name": "العدل والمحاكم",
+      "name_en": "Justice and Courts",
+      "authority": {
+        "name": "وزارة العدل",
+        "name_en": "Ministry of Justice",
+        "website": "https://www.jp.gov.eg"
+      },
+      "services": [
+        {
+          "id": "marriage_contract",
+          "name": "عقد زواج رسمي",
+          "name_en": "Official Marriage Contract",
+          "description": "عقد قران رسمي في المأذونية",
+          "required_documents": [
+            "بطاقة الرقم القومي للزوجين",
+            "شهادة عدم الزواج (للبكر)",
+            "طلاق أو وفاة (للمطلقة/الأرملة)",
+            "شاهدين ببطاقاتهم",
+            "فحص طبي (شهادة الزواج)"
+          ],
+          "fees": {
+            "min": 50,
+            "max": 100,
+            "currency": "EGP",
+            "notes": "حسب المأذونية"
+          },
+          "submission_method": [
+            "المأذونية"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "divorce_registration",
+          "name": "توثيق طلاق",
+          "name_en": "Divorce Registration",
+          "description": "توثيق واقعة الطلاق رسمياً",
+          "required_documents": [
+            "عقد الزواج الأصلي",
+            "بطاقة الرقم القومي للزوج",
+            "شاهدين"
+          ],
+          "fees": {
+            "amount": 50,
+            "currency": "EGP"
+          },
+          "submission_method": [
+            "المأذونية"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "inheritance_distribution",
+          "name": "إعلام وراثة",
+          "name_en": "Inheritance Certificate",
+          "description": "إثبات الورثة الشرعيين للمتوفى",
+          "required_documents": [
+            "شهادة وفاة المتوفى",
+            "بطاقة الرقم القومي لمقدم الطلب",
+            "شاهدين",
+            "بيان بأسماء الورثة"
+          ],
+          "fees": {
+            "amount": 100,
+            "currency": "EGP",
+            "notes": "تقريباً"
+          },
+          "submission_method": [
+            "محكمة الأسرة",
+            "المحكمة الجزئية"
+          ],
+          "is_online": false,
+          "duration": {
+            "min_days": 1,
+            "max_days": 7
+          }
+        },
+        {
+          "id": "power_of_attorney",
+          "name": "توكيل رسمي",
+          "name_en": "Power of Attorney",
+          "description": "توكيل شخص في أمر قانوني",
+          "required_documents": [
+            "بطاقة الرقم القومي للموكِّل والوكيل",
+            "حضور الموكِّل شخصياً"
+          ],
+          "fees": {
+            "amount": null,
+            "currency": "EGP",
+            "notes": "حسب نوع التوكيل"
+          },
+          "submission_method": [
+            "الشهر العقاري",
+            "مكاتب التوثيق"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "legal_aid",
+          "name": "طلب مساعدة قانونية (محامي مجاني)",
+          "name_en": "Legal Aid Request",
+          "description": "الحصول على محامي مجاني للمعسرين",
+          "required_documents": [
+            "بطاقة الرقم القومي",
+            "ما يثبت الحالة المادية"
+          ],
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          },
+          "submission_method": [
+            "المحكمة",
+            "نقابة المحامين"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "court_case_inquiry",
+          "name": "الاستعلام عن قضية",
+          "name_en": "Court Case Inquiry",
+          "description": "الاستعلام عن حالة قضية في المحكمة",
+          "submission_method": [
+            "إلكترونياً عبر بوابة العدل",
+            "المحكمة"
+          ],
+          "is_online": true,
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          }
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "name": "الصحة والتأمين الصحي",
+      "name_en": "Health and Health Insurance",
+      "authority": {
+        "name": "وزارة الصحة والسكان - الهيئة العامة للتأمين الصحي",
+        "name_en": "Ministry of Health - General Health Insurance Authority",
+        "website": "https://www.mohp.gov.eg",
+        "health_insurance_website": "https://www.uhia.gov.eg"
+      },
+      "services": [
+        {
+          "id": "health_insurance_registration",
+          "name": "الاشتراك في التأمين الصحي الشامل",
+          "name_en": "Universal Health Insurance Registration",
+          "description": "التسجيل في منظومة التأمين الصحي الشامل الجديدة",
+          "required_documents": [
+            "بطاقة الرقم القومي",
+            "إثبات محل الإقامة"
+          ],
+          "fees": {
+            "amount": null,
+            "currency": "EGP",
+            "notes": "حسب الدخل والفئة"
+          },
+          "submission_method": [
+            "إلكترونياً عبر موقع التأمين الصحي",
+            "مراكز التأمين الصحي"
+          ],
+          "is_online": true,
+          "coverage_areas": [
+            "بورسعيد",
+            "السويس",
+            "الإسماعيلية",
+            "جنوب سيناء",
+            "الأقصر",
+            "أسوان"
+          ]
+        },
+        {
+          "id": "health_card",
+          "name": "استخراج بطاقة صحية",
+          "name_en": "Health Card Issuance",
+          "description": "استخراج بطاقة العلاج في الوحدات الصحية",
+          "required_documents": [
+            "بطاقة الرقم القومي",
+            "إيصال مرافق"
+          ],
+          "fees": {
+            "amount": 10,
+            "currency": "EGP",
+            "notes": "تقريباً"
+          },
+          "submission_method": [
+            "الوحدة الصحية بالمنطقة"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "medical_reports",
+          "name": "استخراج تقارير طبية",
+          "name_en": "Medical Reports Issuance",
+          "description": "تقارير طبية للسفر، العمل، الإعاقة، إلخ",
+          "types": [
+            "تقرير لياقة للسفر",
+            "تقرير لياقة للعمل",
+            "تقرير إعاقة",
+            "تقرير حالة صحية"
+          ],
+          "required_documents": [
+            "بطاقة الرقم القومي",
+            "فحوصات طبية (حسب نوع التقرير)"
+          ],
+          "fees": {
+            "amount": null,
+            "currency": "EGP",
+            "notes": "حسب نوع التقرير"
+          },
+          "submission_method": [
+            "المستشفيات الحكومية",
+            "مكاتب الصحة"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "vaccination_card",
+          "name": "بطاقة تطعيمات الأطفال",
+          "name_en": "Child Vaccination Card",
+          "description": "بطاقة تطعيمات الأطفال الإلزامية",
+          "required_documents": [
+            "شهادة ميلاد الطفل",
+            "بطاقة الرقم القومي لولي الأمر"
+          ],
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          },
+          "submission_method": [
+            "مكاتب الصحة",
+            "الوحدات الصحية"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "mental_health_support",
+          "name": "الدعم النفسي والصحة النفسية",
+          "name_en": "Mental Health Support",
+          "description": "خدمات الدعم النفسي والاستشارات",
+          "hotlines": [
+            {
+              "name": "الخط الساخن للدعم النفسي",
+              "number": "08008880700"
+            },
+            {
+              "name": "خط نجدة الطفل",
+              "number": "16000"
+            },
+            {
+              "name": "الأمانة العامة للصحة النفسية",
+              "number": "15344"
+            }
+          ],
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً أو رمزي جداً"
+          },
+          "submission_method": [
+            "الخط الساخن",
+            "مستشفيات الصحة النفسية"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "housing",
+      "name": "الإسكان والتمويل العقاري",
+      "name_en": "Housing and Real Estate Finance",
+      "authority": {
+        "name": "وزارة الإسكان - صندوق الإسكان الاجتماعي ودعم التمويل العقاري",
+        "name_en": "Ministry of Housing - Social Housing and Mortgage Finance Fund",
+        "website": "https://www.shmff.gov.eg",
+        "hotline": "19526"
+      },
+      "services": [
+        {
+          "id": "social_housing",
+          "name": "التقديم على وحدات الإسكان الاجتماعي",
+          "name_en": "Social Housing Application",
+          "description": "التقديم على شقق الإسكان الاجتماعي المدعوم",
+          "eligibility": {
+            "age_min": 21,
+            "age_max": 50,
+            "requirements": [
+              "عدم امتلاك وحدة سكنية",
+              "الدخل الشهري ضمن الحدود المسموح بها",
+              "الجنسية المصرية"
+            ]
+          },
+          "required_documents": [
+            "بطاقة الرقم القومي سارية",
+            "إثبات الدخل (شهادة راتب، إقرار ضريبي، بيان تأمينات)",
+            "شهادة عدم امتلاك وحدة سكنية"
+          ],
+          "fees": {
+            "application_fee": {
+              "min": 500,
+              "max": 1000,
+              "currency": "EGP"
+            },
+            "notes": "المقدم والأقساط حسب نوع الوحدة"
+          },
+          "submission_method": [
+            "إلكترونياً فقط عبر موقع صندوق الإسكان"
+          ],
+          "is_online": true,
+          "website": "https://www.shmff.gov.eg"
+        },
+        {
+          "id": "subsidized_mortgage",
+          "name": "التمويل العقاري المدعوم",
+          "name_en": "Subsidized Mortgage Finance",
+          "description": "الحصول على تمويل عقاري بفائدة مدعومة",
+          "initiatives": [
+            {
+              "name": "مبادرة التمويل العقاري بفائدة 3%",
+              "target": "محدودي الدخل",
+              "interest_rate": "3%"
+            },
+            {
+              "name": "مبادرة التمويل بفائدة 8%",
+              "target": "متوسطي الدخل",
+              "interest_rate": "8%"
+            },
+            {
+              "name": "مبادرة التمويل بفائدة 10%",
+              "target": "فوق المتوسط",
+              "interest_rate": "10%"
+            }
+          ],
+          "requirements": [
+            "وجود دخل ثابت",
+            "عدم امتلاك وحدة سكنية"
+          ],
+          "required_documents": [
+            "بطاقة الرقم القومي",
+            "إثبات دخل شهري",
+            "مستندات الوحدة المراد شراؤها"
+          ],
+          "submission_method": [
+            "البنوك المشاركة في المبادرة (البنك الأهلي، مصر، القاهرة، إلخ)"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "housing_for_all_egyptians",
+          "name": "مبادرة سكن لكل المصريين",
+          "name_en": "Housing for All Egyptians Initiative",
+          "description": "التقديم على وحدات سكنية ضمن المبادرة الرئاسية",
+          "unit_types": [
+            {
+              "type": "الإسكان الاجتماعي",
+              "target": "محدودي الدخل"
+            },
+            {
+              "type": "سكن متوسطي الدخل (دار مصر)",
+              "target": "متوسطي الدخل"
+            },
+            {
+              "type": "سكن فوق المتوسط (JANNA)",
+              "target": "فوق المتوسط"
+            }
+          ],
+          "submission_method": [
+            "إلكترونياً عبر موقع وزارة الإسكان",
+            "مراكز خدمة المواطنين"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "housing_inquiry",
+          "name": "الاستعلام عن حالة الحجز",
+          "name_en": "Housing Reservation Inquiry",
+          "description": "الاستعلام عن حالة حجز الوحدة السكنية",
+          "submission_method": [
+            "إلكترونياً عبر موقع الصندوق بالرقم القومي",
+            "الخط الساخن: 19526"
+          ],
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          },
+          "is_online": true
+        },
+        {
+          "id": "housing_complaints",
+          "name": "تقديم الشكاوى والمقترحات",
+          "name_en": "Housing Complaints and Suggestions",
+          "description": "تقديم شكاوى أو مقترحات لصندوق الإسكان",
+          "submission_method": [
+            "إلكترونياً عبر منصة الشكاوى: https://cservices.shmff.gov.eg",
+            "الخط الساخن: 19526"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "unit_change_request",
+          "name": "طلب تغيير الوحدة (للحالات المرضية)",
+          "name_en": "Unit Change Request (Medical Cases)",
+          "description": "طلب تغيير الوحدة المحجوزة لأسباب صحية",
+          "required_documents": [
+            "تقارير طبية تثبت الحالة المرضية",
+            "بيانات الحجز الأصلية"
+          ],
+          "submission_method": [
+            "مركز خدمة المواطنين التابع للصندوق"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "taxes",
+      "name": "الضرائب المصرية",
+      "name_en": "Egyptian Taxes",
+      "authority": {
+        "name": "وزارة المالية - مصلحة الضرائب المصرية",
+        "name_en": "Ministry of Finance - Egyptian Tax Authority",
+        "website": "https://www.eta.gov.eg",
+        "hotline": "16395"
+      },
+      "services": [
+        {
+          "id": "tax_registration",
+          "name": "التسجيل الضريبي (الحصول على رقم ضريبي)",
+          "name_en": "Tax Registration",
+          "description": "التسجيل في مصلحة الضرائب والحصول على الرقم الضريبي",
+          "target_groups": [
+            "أصحاب المنشآت التجارية",
+            "أصحاب الأعمال الحرة",
+            "الشركات بكافة أنواعها"
+          ],
+          "required_documents": [
+            "بطاقة الرقم القومي",
+            "السجل التجاري (للمنشآت)",
+            "عقد الشركة (للشركات)",
+            "عقد المقر (إيجار أو ملكية)"
+          ],
+          "submission_method": [
+            "إلكترونياً عبر البوابة الإلكترونية للضرائب",
+            "مأمورية الضرائب المختصة"
+          ],
+          "duration": {
+            "min_days": 3,
+            "max_days": 7
+          },
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          },
+          "is_online": true
+        },
+        {
+          "id": "tax_return",
+          "name": "تقديم الإقرار الضريبي",
+          "name_en": "Tax Return Filing",
+          "description": "تقديم الإقرار الضريبي السنوي إلكترونياً",
+          "return_types": [
+            "إقرار ضريبة الدخل",
+            "إقرار ضريبة القيمة المضافة (شهري/ربع سنوي)",
+            "إقرار ضريبة الأجور والمرتبات",
+            "إقرار ضريبة الأرباح التجارية والصناعية"
+          ],
+          "required_documents": [
+            "بيانات الدخل/المبيعات",
+            "المستندات المؤيدة",
+            "البطاقة الضريبية"
+          ],
+          "submission_method": [
+            "إلكترونياً عبر البوابة الإلكترونية: https://eservice.incometax.gov.eg"
+          ],
+          "fees": {
+            "amount": null,
+            "currency": "EGP",
+            "notes": "حسب الضريبة المستحقة"
+          },
+          "is_online": true,
+          "timing": "حسب الجدول الضريبي السنوي"
+        },
+        {
+          "id": "e_invoice",
+          "name": "منظومة الفاتورة الإلكترونية",
+          "name_en": "E-Invoice System",
+          "description": "التسجيل في منظومة الفاتورة الإلكترونية",
+          "target_groups": [
+            "الشركات (حسب معايير محددة)",
+            "المصانع",
+            "الموزعون"
+          ],
+          "required_documents": [
+            "البطاقة الضريبية",
+            "السجل التجاري",
+            "بيانات المنشأة والفروع"
+          ],
+          "submission_method": [
+            "إلكترونياً عبر موقع الفاتورة الإلكترونية"
+          ],
+          "support_email": "[email protected]",
+          "is_online": true
+        },
+        {
+          "id": "e_receipt",
+          "name": "منظومة الإيصال الإلكتروني",
+          "name_en": "E-Receipt System",
+          "description": "التسجيل في منظومة الإيصال الإلكتروني",
+          "target_groups": [
+            "المحلات التجارية",
+            "المطاعم والكافيهات",
+            "محلات البيع بالتجزئة"
+          ],
+          "submission_method": [
+            "إلكترونياً عبر منصة الضرائب"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "tax_refund",
+          "name": "طلب رد ضريبة",
+          "name_en": "Tax Refund Request",
+          "description": "طلب استرداد الضريبة المسددة بالزيادة",
+          "required_documents": [
+            "الإقرار الضريبي",
+            "المستندات المؤيدة للمبالغ المطلوب ردها",
+            "إثباتات السداد"
+          ],
+          "submission_method": [
+            "المأمورية الضريبية المختصة"
+          ],
+          "duration": {
+            "min_days": 30,
+            "max_days": 180,
+            "description": "من شهر إلى 6 أشهر"
+          },
+          "is_online": false
+        },
+        {
+          "id": "tax_inquiry",
+          "name": "الاستعلام عن المستحقات الضريبية",
+          "name_en": "Tax Dues Inquiry",
+          "description": "الاستعلام عن الضرائب المستحقة",
+          "submission_method": [
+            "إلكترونياً عبر البوابة الإلكترونية",
+            "الخط الساخن: 16395"
+          ],
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          },
+          "is_online": true
+        },
+        {
+          "id": "tax_installment",
+          "name": "تقسيط المستحقات الضريبية",
+          "name_en": "Tax Dues Installment",
+          "description": "طلب تقسيط الضرائب المستحقة",
+          "required_documents": [
+            "طلب تقسيط",
+            "بيان بالمستحقات",
+            "ضمانات (حسب المبلغ)"
+          ],
+          "submission_method": [
+            "المأمورية الضريبية المختصة"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "property_tax",
+      "name": "الضريبة العقارية",
+      "name_en": "Property Tax",
+      "authority": {
+        "name": "وزارة المالية - مصلحة الضرائب العقارية",
+        "name_en": "Ministry of Finance - Real Estate Tax Authority",
+        "website": "https://www.rta.gov.eg"
+      },
+      "services": [
+        {
+          "id": "property_tax_registration",
+          "name": "التسجيل في الضريبة العقارية",
+          "name_en": "Property Tax Registration",
+          "description": "تسجيل العقار (مبنى، شقة، محل) في الضريبة العقارية",
+          "required_documents": [
+            "عقد الملكية أو التمليك",
+            "بطاقة الرقم القومي",
+            "إثبات محل العقار (رسم كروكي، عنوان مفصل)"
+          ],
+          "submission_method": [
+            "مأمورية الضرائب العقارية بالمنطقة"
+          ],
+          "duration": {
+            "min_days": 7,
+            "max_days": 30
+          },
+          "fees": {
+            "amount": null,
+            "currency": "EGP",
+            "notes": "حسب القيمة الإيجارية السنوية للعقار"
+          },
+          "is_online": false
+        },
+        {
+          "id": "property_tax_payment",
+          "name": "سداد الضريبة العقارية",
+          "name_en": "Property Tax Payment",
+          "description": "سداد الضريبة العقارية السنوية",
+          "payment_methods": [
+            "إلكترونياً عبر موقع الضرائب العقارية",
+            "المأمورية الضريبية",
+            "البريد",
+            "البنوك المعتمدة"
+          ],
+          "timing": "سنوياً حسب الإخطار الضريبي",
+          "is_online": true
+        },
+        {
+          "id": "property_tax_exemption",
+          "name": "الإعفاء من الضريبة العقارية",
+          "name_en": "Property Tax Exemption",
+          "description": "طلب الإعفاء للحالات المستحقة",
+          "exempt_cases": [
+            "الوحدات السكنية التي لا تتجاوز قيمتها السوقية حد الإعفاء (2 مليون جنيه حالياً)",
+            "دور العبادة",
+            "المستشفيات الخيرية",
+            "المدارس والجامعات",
+            "الأندية الرياضية"
+          ],
+          "submission_method": [
+            "المأمورية المختصة"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "property_tax_appeal",
+          "name": "التظلم على تقدير القيمة الضريبية",
+          "name_en": "Property Tax Valuation Appeal",
+          "description": "التظلم على القيمة الإيجارية المقدرة للعقار",
+          "required_documents": [
+            "طلب تظلم",
+            "المستندات المؤيدة للقيمة الحقيقية",
+            "الإخطار الضريبي"
+          ],
+          "submission_method": [
+            "لجان التظلمات بمصلحة الضرائب العقارية"
+          ],
+          "duration": {
+            "min_days": 30,
+            "max_days": 90
+          },
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "customs",
+      "name": "الجمارك",
+      "name_en": "Customs",
+      "authority": {
+        "name": "وزارة المالية - مصلحة الجمارك المصرية",
+        "name_en": "Ministry of Finance - Egyptian Customs Authority",
+        "website": "https://customs.gov.eg",
+        "nafeza_website": "https://www.nafeza.gov.eg"
+      },
+      "services": [
+        {
+          "id": "nafeza_registration",
+          "name": "التسجيل على منصة نافذة",
+          "name_en": "Nafeza Platform Registration",
+          "description": "التسجيل على منصة نافذة الجمركية الموحدة",
+          "target_groups": [
+            "المستوردين والمصدرين",
+            "المخلصين الجمركيين",
+            "أصحاب المستودعات",
+            "شركات الشحن"
+          ],
+          "required_documents": [
+            "السجل التجاري",
+            "البطاقة الضريبية",
+            "بطاقة الرقم القومي للمالك/المفوض",
+            "البطاقة الاستيرادية (للمستوردين)"
+          ],
+          "submission_method": [
+            "إلكترونياً عبر https://www.nafeza.gov.eg"
+          ],
+          "fees": {
+            "amount": null,
+            "currency": "EGP",
+            "notes": "رسوم اشتراك سنوية"
+          },
+          "is_online": true
+        },
+        {
+          "id": "aci_registration",
+          "name": "التسجيل المسبق للشحنات (ACI)",
+          "name_en": "Advanced Cargo Information (ACI)",
+          "description": "التسجيل المسبق للشحنات قبل وصولها إلى الموانئ المصرية",
+          "submission_method": [
+            "إلكترونياً عبر نظام ACI على منصة نافذة"
+          ],
+          "is_online": true,
+          "mandatory": true
+        },
+        {
+          "id": "aeo_program",
+          "name": "برنامج المشغل الاقتصادي المعتمد (AEO)",
+          "name_en": "Authorized Economic Operator (AEO)",
+          "description": "الحصول على اعتماد المشغل الاقتصادي للتيسيرات الجمركية",
+          "benefits": [
+            "تسريع إجراءات الإفراج الجمركي",
+            "تقليل عمليات التفتيش",
+            "أولوية في المعاملة",
+            "مسارات خضراء"
+          ],
+          "required_documents": [
+            "طلب اعتماد",
+            "السجل التجاري",
+            "البيانات المالية للشركة",
+            "إجراءات الرقابة الداخلية"
+          ],
+          "submission_method": [
+            "مصلحة الجمارك - إدارة المشغل الاقتصادي المعتمد"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "customs_clearance",
+          "name": "الإفراج الجمركي عن البضائع",
+          "name_en": "Customs Clearance",
+          "description": "إجراءات الإفراج عن البضائع المستوردة",
+          "required_documents": [
+            "بوليصة الشحن (Bill of Lading)",
+            "الفاتورة التجارية الأصلية",
+            "شهادة المنشأ",
+            "قائمة التعبئة (Packing List)",
+            {
+              "category": "موافقات الجهات الرقابية (حسب نوع البضاعة)",
+              "items": [
+                "الصحة",
+                "الزراعة",
+                "الاتصالات",
+                "الأدوية"
+              ]
+            }
+          ],
+          "submission_method": [
+            "إلكترونياً عبر منصة نافذة"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "car_import",
+          "name": "استيراد سيارة شخصية",
+          "name_en": "Personal Car Import",
+          "description": "إجراءات استيراد سيارة للاستخدام الشخصي",
+          "requirements": [
+            "حسب قانون الجمارك واللوائح المنظمة",
+            "سنة الصنع (حسب اللوائح)",
+            "المواصفات الفنية المطلوبة"
+          ],
+          "required_documents": [
+            "فاتورة شراء السيارة",
+            "شهادة المنشأ",
+            "بطاقة الرقم القومي",
+            "سداد الرسوم الجمركية"
+          ],
+          "submission_method": [
+            "منافذ الجمارك (موانئ، مطارات)"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "export_goods",
+          "name": "تصدير البضائع",
+          "name_en": "Goods Export",
+          "description": "إجراءات تصدير المنتجات المصرية",
+          "required_documents": [
+            "الفاتورة التجارية",
+            "شهادة المنشأ المصرية",
+            "البيان الجمركي",
+            "موافقات تصدير (حسب نوع البضاعة)"
+          ],
+          "submission_method": [
+            "إلكترونياً عبر منصة نافذة"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "tariff_inquiry",
+          "name": "الاستعلام عن التعريفة الجمركية",
+          "name_en": "Customs Tariff Inquiry",
+          "description": "الاستعلام عن الرسوم الجمركية للسلع",
+          "submission_method": [
+            "إلكترونياً عبر موقع الجمارك",
+            "منصة نافذة"
+          ],
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          },
+          "is_online": true
+        }
+      ]
+    },
+    {
+      "id": "electricity",
+      "name": "الكهرباء والطاقة",
+      "name_en": "Electricity and Energy",
+      "authority": {
+        "name": "وزارة الكهرباء والطاقة المتجددة - الشركة القابضة لكهرباء مصر",
+        "name_en": "Ministry of Electricity - Egyptian Electricity Holding Company",
+        "website": "https://www.eehc.gov.eg",
+        "inquiry_website": "http://www.moee.gov.eg"
+      },
+      "services": [
+        {
+          "id": "electricity_bill_inquiry",
+          "name": "الاستعلام عن فاتورة الكهرباء",
+          "name_en": "Electricity Bill Inquiry",
+          "description": "الاستعلام عن قيمة فاتورة استهلاك الكهرباء",
+          "inquiry_methods": [
+            "إلكترونياً عبر موقع الشركة القابضة",
+            "بكود العداد عبر الموقع",
+            "تطبيق الهاتف المحمول",
+            "الرسائل النصية SMS"
+          ],
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          },
+          "is_online": true
+        },
+        {
+          "id": "electricity_bill_payment",
+          "name": "سداد فاتورة الكهرباء إلكترونياً",
+          "name_en": "Electricity Bill Payment",
+          "description": "سداد الفاتورة عبر الإنترنت",
+          "payment_methods": [
+            "البطاقات البنكية (فيزا، ماستركارد)",
+            "المحافظ الإلكترونية (فودافون كاش، اتصالات كاش، أورانج كاش)",
+            "فوري",
+            "مصاري",
+            "أمان",
+            "البنوك الإلكترونية"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "new_electricity_connection",
+          "name": "طلب توصيل كهرباء جديد",
+          "name_en": "New Electricity Connection Request",
+          "description": "طلب توصيل الكهرباء لوحدة سكنية أو تجارية جديدة",
+          "required_documents": [
+            "عقد الملكية أو الإيجار مصدق",
+            "بطاقة الرقم القومي",
+            "رخصة البناء (للمباني الجديدة)",
+            "رسم كروكي للمكان"
+          ],
+          "fees": {
+            "amount": null,
+            "currency": "EGP",
+            "notes": "حسب الحمل المطلوب والمسافة"
+          },
+          "duration": {
+            "min_days": 7,
+            "max_days": 30,
+            "description": "من أسبوع إلى شهر (حسب الموقع)"
+          },
+          "submission_method": [
+            "شركة توزيع الكهرباء بالمنطقة",
+            "مراكز خدمة العملاء"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "electricity_meter_reading",
+          "name": "قراءة العداد والإبلاغ عن القراءة",
+          "name_en": "Meter Reading and Reporting",
+          "description": "إبلاغ الشركة بقراءة العداد شهرياً",
+          "submission_method": [
+            "تطبيق الهاتف المحمول",
+            "موقع الشركة",
+            "SMS"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "electricity_complaints",
+          "name": "تقديم شكوى أو بلاغ عطل",
+          "name_en": "Electricity Complaints and Fault Reports",
+          "description": "الإبلاغ عن أعطال الكهرباء أو تقديم شكاوى",
+          "submission_method": [
+            "الخط الساخن",
+            "موقع الشركة",
+            "تطبيق الهاتف"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "prepaid_electricity",
+          "name": "نظام الكهرباء مسبق الدفع",
+          "name_en": "Prepaid Electricity System",
+          "description": "التحول لنظام الكهرباء مسبق الدفع (كارت الشحن)",
+          "submission_method": [
+            "شركة الكهرباء بالمنطقة"
+          ],
+          "benefits": [
+            "التحكم في الاستهلاك",
+            "عدم وجود فواتير شهرية",
+            "الشحن حسب الحاجة"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "water_sanitation",
+      "name": "المياه والصرف الصحي",
+      "name_en": "Water and Sanitation",
+      "authority": {
+        "name": "الشركة القابضة لمياه الشرب والصرف الصحي",
+        "name_en": "Holding Company for Water and Wastewater"
+      },
+      "services": [
+        {
+          "id": "water_bill_inquiry",
+          "name": "الاستعلام عن فاتورة المياه",
+          "name_en": "Water Bill Inquiry",
+          "description": "الاستعلام عن قيمة فاتورة المياه والصرف",
+          "submission_method": [
+            "موقع شركة المياه بالمحافظة",
+            "كود العداد"
+          ],
+          "is_online": true,
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          }
+        },
+        {
+          "id": "water_bill_payment",
+          "name": "سداد فاتورة المياه",
+          "name_en": "Water Bill Payment",
+          "description": "سداد فاتورة المياه إلكترونياً",
+          "payment_methods": [
+            "فوري",
+            "مصاري",
+            "المحافظ الإلكترونية",
+            "البنوك"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "new_water_connection",
+          "name": "طلب توصيل مياه جديد",
+          "name_en": "New Water Connection",
+          "description": "توصيل المياه والصرف الصحي لوحدة جديدة",
+          "required_documents": [
+            "عقد الملكية أو الإيجار",
+            "بطاقة الرقم القومي",
+            "رخصة البناء"
+          ],
+          "submission_method": [
+            "شركة المياه بالمحافظة"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "water_leak_report",
+          "name": "الإبلاغ عن تسرب مياه",
+          "name_en": "Water Leak Report",
+          "description": "الإبلاغ عن تسريب في خط المياه",
+          "submission_method": [
+            "الخط الساخن للشركة",
+            "تطبيق الهاتف"
+          ],
+          "is_online": true
+        }
+      ]
+    },
+    {
+      "id": "natural_gas",
+      "name": "الغاز الطبيعي",
+      "name_en": "Natural Gas",
+      "authority": {
+        "name": "الشركة القابضة للغازات الطبيعية",
+        "name_en": "Natural Gas Holding Company"
+      },
+      "services": [
+        {
+          "id": "gas_connection_request",
+          "name": "طلب توصيل غاز طبيعي",
+          "name_en": "Natural Gas Connection Request",
+          "description": "توصيل الغاز الطبيعي للمنازل والمنشآت",
+          "required_documents": [
+            "عقد الملكية أو الإيجار",
+            "بطاقة الرقم القومي",
+            "رسم كروكي"
+          ],
+          "fees": {
+            "amount": null,
+            "currency": "EGP",
+            "notes": "حسب المسافة ونوع الوحدة"
+          },
+          "submission_method": [
+            "شركة توزيع الغاز بالمنطقة"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "gas_bill_inquiry",
+          "name": "الاستعلام عن فاتورة الغاز",
+          "name_en": "Gas Bill Inquiry",
+          "description": "الاستعلام عن قيمة فاتورة الغاز الطبيعي",
+          "submission_method": [
+            "موقع شركة الغاز",
+            "كود العداد"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "gas_leak_report",
+          "name": "الإبلاغ عن تسرب غاز",
+          "name_en": "Gas Leak Report",
+          "description": "الإبلاغ الفوري عن تسرب غاز (طوارئ)",
+          "emergency_hotline": "129",
+          "submission_method": [
+            "اتصال فوري بالرقم 129"
+          ],
+          "is_online": true
+        }
+      ]
+    },
+    {
+      "id": "social_insurance",
+      "name": "التأمينات الاجتماعية",
+      "name_en": "Social Insurance",
+      "authority": {
+        "name": "الهيئة القومية للتأمين الاجتماعي",
+        "name_en": "National Organization for Social Insurance",
+        "website": "https://www.nosi.gov.eg"
+      },
+      "services": [
+        {
+          "id": "pension_inquiry",
+          "name": "الاستعلام عن المعاش",
+          "name_en": "Pension Inquiry",
+          "description": "الاستعلام عن قيمة المعاش الشهري",
+          "submission_method": [
+            "إلكترونياً عبر موقع التأمينات",
+            "بالرقم القومي"
+          ],
+          "is_online": true,
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          }
+        },
+        {
+          "id": "pension_certificate",
+          "name": "استخراج شهادة معاش",
+          "name_en": "Pension Certificate",
+          "description": "شهادة تفيد بالحصول على معاش",
+          "required_documents": [
+            "بطاقة الرقم القومي"
+          ],
+          "submission_method": [
+            "مكتب التأمينات"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "insurance_subscription",
+          "name": "الاشتراك في التأمينات (للعمالة غير المنتظمة)",
+          "name_en": "Social Insurance Subscription",
+          "description": "الاشتراك الاختياري في التأمينات للعمالة الحرة",
+          "required_documents": [
+            "بطاقة الرقم القومي",
+            "إثبات العمل أو النشاط"
+          ],
+          "submission_method": [
+            "مكتب التأمينات الاجتماعية"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "insurance_duration_inquiry",
+          "name": "الاستعلام عن مدة الاشتراك",
+          "name_en": "Insurance Period Inquiry",
+          "description": "الاستعلام عن مدة الاشتراك في التأمينات",
+          "submission_method": [
+            "إلكترونياً عبر الموقع",
+            "مكتب التأمينات"
+          ],
+          "is_online": true
+        }
+      ]
+    },
+    {
+      "id": "labor_manpower",
+      "name": "العمل والقوى العاملة",
+      "name_en": "Labor and Manpower",
+      "authority": {
+        "name": "وزارة العمل",
+        "name_en": "Ministry of Manpower",
+        "website": "https://www.manpower.gov.eg"
+      },
+      "services": [
+        {
+          "id": "work_permit_foreigners",
+          "name": "تصريح عمل للأجانب",
+          "name_en": "Work Permit for Foreigners",
+          "description": "استخراج تصريح عمل للعمالة الأجنبية",
+          "required_documents": [
+            "عقد العمل",
+            "جواز السفر",
+            "المؤهلات الدراسية",
+            "موافقة الشركة"
+          ],
+          "submission_method": [
+            "وزارة العمل"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "labor_complaints",
+          "name": "تقديم شكوى عمالية",
+          "name_en": "Labor Complaint",
+          "description": "تقديم شكاوى ضد صاحب العمل",
+          "submission_method": [
+            "مكتب العمل بالمحافظة",
+            "إلكترونياً عبر موقع الوزارة"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "job_search",
+          "name": "البحث عن عمل عبر مكاتب التشغيل",
+          "name_en": "Job Search via Employment Offices",
+          "description": "التسجيل للبحث عن فرص عمل",
+          "submission_method": [
+            "مكاتب التشغيل الحكومية"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "agriculture",
+      "name": "الزراعة والاستصلاح",
+      "name_en": "Agriculture and Land Reclamation",
+      "authority": {
+        "name": "وزارة الزراعة واستصلاح الأراضي",
+        "name_en": "Ministry of Agriculture and Land Reclamation",
+        "website": "https://www.agr.gov.eg"
+      },
+      "services": [
+        {
+          "id": "agricultural_land_lease",
+          "name": "استئجار أراضي زراعية من الدولة",
+          "name_en": "Agricultural Land Lease",
+          "description": "استئجار أراضي الاستصلاح الزراعي",
+          "submission_method": [
+            "هيئة الاستصلاح الزراعي"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "pesticide_license",
+          "name": "ترخيص محل مبيدات",
+          "name_en": "Pesticide Shop License",
+          "description": "الحصول على ترخيص لبيع المبيدات الزراعية",
+          "required_documents": [
+            "السجل التجاري",
+            "موافقة وزارة الزراعة"
+          ],
+          "submission_method": [
+            "مديرية الزراعة"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "telecommunications",
+      "name": "الاتصالات وتكنولوجيا المعلومات",
+      "name_en": "Telecommunications and IT",
+      "authority": {
+        "name": "وزارة الاتصالات وتكنولوجيا المعلومات - الجهاز القومي لتنظيم الاتصالات",
+        "name_en": "Ministry of Communications - National Telecom Regulatory Authority",
+        "website": "https://www.tra.gov.eg"
+      },
+      "services": [
+        {
+          "id": "telecom_complaints",
+          "name": "شكاوى خدمات الاتصالات",
+          "name_en": "Telecom Complaints",
+          "description": "تقديم شكاوى ضد شركات الاتصالات",
+          "submission_method": [
+            "موقع الجهاز القومي لتنظيم الاتصالات",
+            "الخط الساخن"
+          ],
+          "is_online": true
+        },
+        {
+          "id": "domain_registration",
+          "name": "حجز نطاق إلكتروني مصري (.eg)",
+          "name_en": "Egyptian Domain Registration",
+          "description": "حجز نطاق بامتداد .eg أو .com.eg",
+          "website": "https://www.dotmasr.eg",
+          "submission_method": [
+            "إلكترونياً عبر موقع دوت مصر"
+          ],
+          "is_online": true
+        }
+      ]
+    },
+    {
+      "id": "youth_sports",
+      "name": "الشباب والرياضة",
+      "name_en": "Youth and Sports",
+      "authority": {
+        "name": "وزارة الشباب والرياضة",
+        "name_en": "Ministry of Youth and Sports",
+        "website": "https://www.emys.gov.eg"
+      },
+      "services": [
+        {
+          "id": "youth_card",
+          "name": "استخراج كارنيه الشباب",
+          "name_en": "Youth Card Issuance",
+          "description": "كارنيه للحصول على تخفيضات وخدمات شبابية",
+          "required_documents": [
+            "بطاقة الرقم القومي",
+            "صورة شخصية"
+          ],
+          "age_requirement": "من 12 إلى 35 سنة",
+          "fees": {
+            "amount": 50,
+            "currency": "EGP",
+            "notes": "تقريباً"
+          },
+          "submission_method": [
+            "مراكز الشباب",
+            "مديريات الشباب والرياضة"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "sports_club_membership",
+          "name": "الاشتراك في الأندية الرياضية الحكومية",
+          "name_en": "Government Sports Club Membership",
+          "description": "الاشتراك في أندية الشباب والرياضة",
+          "submission_method": [
+            "النادي الرياضي"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "culture",
+      "name": "الثقافة والفنون",
+      "name_en": "Culture and Arts",
+      "authority": {
+        "name": "وزارة الثقافة",
+        "name_en": "Ministry of Culture",
+        "website": "https://www.moc.gov.eg"
+      },
+      "services": [
+        {
+          "id": "library_membership",
+          "name": "الاشتراك في المكتبات العامة",
+          "name_en": "Public Library Membership",
+          "description": "الحصول على عضوية مكتبة عامة",
+          "required_documents": [
+            "بطاقة الرقم القومي",
+            "صورة شخصية"
+          ],
+          "fees": {
+            "amount": 10,
+            "currency": "EGP",
+            "notes": "رمزي"
+          },
+          "submission_method": [
+            "المكتبة العامة"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "consumer_protection",
+      "name": "حماية المستهلك",
+      "name_en": "Consumer Protection",
+      "authority": {
+        "name": "جهاز حماية المستهلك",
+        "name_en": "Consumer Protection Agency",
+        "hotline": "19588"
+      },
+      "services": [
+        {
+          "id": "consumer_complaint",
+          "name": "تقديم شكوى مستهلك",
+          "name_en": "Consumer Complaint",
+          "description": "شكاوى ضد السلع والخدمات الرديئة",
+          "submission_method": [
+            "الخط الساخن: 19588",
+            "موقع جهاز حماية المستهلك"
+          ],
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          },
+          "is_online": true
+        }
+      ]
+    },
+    {
+      "id": "religious_affairs",
+      "name": "الشؤون الدينية",
+      "name_en": "Religious Affairs",
+      "authority": {
+        "name": "وزارة الأوقاف",
+        "name_en": "Ministry of Endowments (Awqaf)"
+      },
+      "services": [
+        {
+          "id": "hajj_registration",
+          "name": "تسجيل الحج",
+          "name_en": "Hajj Registration",
+          "description": "التسجيل في قرعة الحج",
+          "required_documents": [
+            "جواز سفر ساري",
+            "بطاقة الرقم القومي"
+          ],
+          "submission_method": [
+            "الشركات المعتمدة",
+            "وزارة الأوقاف"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "islam_declaration",
+          "name": "إشهار إسلام",
+          "name_en": "Islam Declaration",
+          "description": "إشهار الدخول في الإسلام رسمياً",
+          "submission_method": [
+            "وزارة الأوقاف - إدارة الدعوة"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "social_solidarity",
+      "name": "التضامن الاجتماعي",
+      "name_en": "Social Solidarity",
+      "authority": {
+        "name": "وزارة التضامن الاجتماعي",
+        "name_en": "Ministry of Social Solidarity",
+        "website": "https://www.moss.gov.eg"
+      },
+      "services": [
+        {
+          "id": "takaful_karama",
+          "name": "برنامج تكافل وكرامة (الدعم النقدي)",
+          "name_en": "Takaful and Karama Program",
+          "description": "التسجيل في برنامج الدعم النقدي",
+          "programs": [
+            {
+              "name": "تكافل",
+              "target": "الأسر التي لديها أطفال"
+            },
+            {
+              "name": "كرامة",
+              "target": "كبار السن وذوي الإعاقة"
+            }
+          ],
+          "eligibility": [
+            "الحالة الاجتماعية والاقتصادية",
+            "عدم وجود دخل ثابت"
+          ],
+          "submission_method": [
+            "الوحدات الاجتماعية",
+            "مكاتب التضامن"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "disability_grant",
+          "name": "منحة ذوي الإعاقة",
+          "name_en": "Disability Grant",
+          "description": "الحصول على دعم مالي شهري لذوي الإعاقة",
+          "required_documents": [
+            "بطاقة الرقم القومي",
+            "بطاقة الخدمات المتكاملة لذوي الإعاقة",
+            "إثبات الحالة الاجتماعية"
+          ],
+          "submission_method": [
+            "مكاتب التضامن الاجتماعي"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "disability_card",
+          "name": "استخراج بطاقة الخدمات المتكاملة لذوي الإعاقة",
+          "name_en": "Disability Services Card",
+          "description": "بطاقة تخول صاحبها العديد من المزايا",
+          "benefits": [
+            "تخفيضات على المواصلات",
+            "إعفاءات ضريبية",
+            "أولوية في التوظيف",
+            "دعم مالي"
+          ],
+          "required_documents": [
+            "بطاقة الرقم القومي",
+            "تقرير طبي من التأمين الصحي"
+          ],
+          "submission_method": [
+            "مكاتب التأهيل الاجتماعي"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "ngo_registration",
+          "name": "تسجيل جمعية أهلية",
+          "name_en": "NGO Registration",
+          "description": "تسجيل جمعية أو مؤسسة أهلية",
+          "required_documents": [
+            "طلب تسجيل",
+            "عقد التأسيس",
+            "النظام الأساسي",
+            "بيانات المؤسسين"
+          ],
+          "submission_method": [
+            "مديرية التضامن الاجتماعي"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "industry_trade",
+      "name": "الصناعة والتجارة",
+      "name_en": "Industry and Trade",
+      "authority": {
+        "name": "وزارة التجارة والصناعة - هيئة الاستثمار",
+        "name_en": "Ministry of Trade and Industry - Investment Authority",
+        "website": "https://www.gafi.gov.eg"
+      },
+      "services": [
+        {
+          "id": "company_establishment",
+          "name": "تأسيس شركة",
+          "name_en": "Company Establishment",
+          "description": "تأسيس شركة (مساهمة، ذات مسؤولية محدودة، توصية، إلخ)",
+          "required_documents": [
+            "عقد التأسيس والنظام الأساسي",
+            "بطاقات الرقم القومي للشركاء/المؤسسين",
+            "عقد المقر",
+            "السجل التجاري"
+          ],
+          "submission_method": [
+            "هيئة الاستثمار (مركز خدمة المستثمرين)"
+          ],
+          "duration": {
+            "min_days": 1,
+            "max_days": 7
+          },
+          "is_online": false
+        },
+        {
+          "id": "factory_license",
+          "name": "استخراج ترخيص مصنع",
+          "name_en": "Factory License",
+          "description": "استخراج ترخيص لإقامة مصنع",
+          "required_documents": [
+            "دراسة جدوى",
+            "عقد الأرض/المبنى",
+            "الموافقة البيئية",
+            "موافقة الحماية المدنية"
+          ],
+          "submission_method": [
+            "هيئة التنمية الصناعية"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "intellectual_property",
+          "name": "حماية الملكية الفكرية (براءات الاختراع/العلامات التجارية)",
+          "name_en": "Intellectual Property Protection",
+          "description": "تسجيل براءة اختراع أو علامة تجارية",
+          "submission_method": [
+            "مصلحة تسجيل براءات الاختراع والعلامات التجارية"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "commercial_registry",
+          "name": "السجل التجاري",
+          "name_en": "Commercial Registry",
+          "description": "استخراج سجل تجاري للمنشآت",
+          "required_documents": [
+            "بطاقة الرقم القومي",
+            "عقد الإيجار أو الملكية للمحل",
+            "البطاقة الضريبية"
+          ],
+          "submission_method": [
+            "مكتب السجل التجاري بالمحافظة"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "civil_aviation",
+      "name": "الطيران المدني",
+      "name_en": "Civil Aviation",
+      "authority": {
+        "name": "وزارة الطيران المدني",
+        "name_en": "Ministry of Civil Aviation",
+        "website": "https://www.civilaviation.gov.eg"
+      },
+      "services": [
+        {
+          "id": "airline_complaints",
+          "name": "تقديم شكاوى ضد شركات الطيران",
+          "name_en": "Airline Complaints",
+          "description": "شكاوى حقوق المسافرين",
+          "submission_method": [
+            "إلكترونياً عبر موقع الوزارة",
+            "المطار"
+          ],
+          "is_online": true
+        }
+      ]
+    },
+    {
+      "id": "investment",
+      "name": "الاستثمار والمشروعات",
+      "name_en": "Investment and Projects",
+      "authority": {
+        "name": "الهيئة العامة للاستثمار والمناطق الحرة (GAFI)",
+        "name_en": "General Authority for Investment and Free Zones",
+        "website": "https://www.gafi.gov.eg"
+      },
+      "services": [
+        {
+          "id": "investment_incentives",
+          "name": "التقديم على حوافز الاستثمار",
+          "name_en": "Investment Incentives Application",
+          "description": "الحصول على حوافز وإعفاءات للمشروعات الاستثمارية",
+          "incentives": [
+            "إعفاءات ضريبية",
+            "تخصيص أراضي",
+            "تسهيلات جمركية"
+          ],
+          "submission_method": [
+            "هيئة الاستثمار"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "renewable_energy",
+      "name": "الطاقة المتجددة",
+      "name_en": "Renewable Energy",
+      "authority": {
+        "name": "هيئة الطاقة الجديدة والمتجددة",
+        "name_en": "New and Renewable Energy Authority",
+        "website": "https://www.nrea.gov.eg"
+      },
+      "services": [
+        {
+          "id": "solar_panels_installation",
+          "name": "تركيب خلايا شمسية",
+          "name_en": "Solar Panels Installation",
+          "description": "الحصول على موافقة لتركيب خلايا شمسية",
+          "submission_method": [
+            "الهيئة أو شركة الكهرباء"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "postal_services",
+      "name": "الخدمات البريدية",
+      "name_en": "Postal Services",
+      "authority": {
+        "name": "الهيئة القومية للبريد",
+        "name_en": "Egypt Post",
+        "website": "https://www.egyptpost.org"
+      },
+      "services": [
+        {
+          "id": "postal_savings_account",
+          "name": "فتح حساب توفير بريدي",
+          "name_en": "Postal Savings Account",
+          "description": "فتح حساب توفير في البريد",
+          "required_documents": [
+            "بطاقة الرقم القومي"
+          ],
+          "fees": {
+            "amount": 0,
+            "currency": "EGP",
+            "notes": "مجاناً"
+          },
+          "submission_method": [
+            "مكتب البريد"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "meza_card",
+          "name": "استخراج بطاقة ميزة البريدية",
+          "name_en": "Meza Card (Egypt Post Debit Card)",
+          "description": "بطاقة ائتمانية من البريد",
+          "submission_method": [
+            "مكاتب البريد"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "environment",
+      "name": "البيئة",
+      "name_en": "Environment",
+      "authority": {
+        "name": "وزارة البيئة - جهاز شؤون البيئة",
+        "name_en": "Ministry of Environment"
+      },
+      "services": [
+        {
+          "id": "environmental_approval",
+          "name": "الموافقة البيئية للمشروعات",
+          "name_en": "Environmental Approval for Projects",
+          "description": "الحصول على موافقة بيئية للمصانع والمشروعات",
+          "required_documents": [
+            "دراسة تقييم الأثر البيئي",
+            "بيانات المشروع"
+          ],
+          "submission_method": [
+            "جهاز شؤون البيئة"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "transportation",
+      "name": "النقل والمواصلات",
+      "name_en": "Transportation",
+      "authority": {
+        "name": "وزارة النقل",
+        "name_en": "Ministry of Transportation"
+      },
+      "services": [
+        {
+          "id": "transport_license",
+          "name": "ترخيص سيارة نقل أو أجرة",
+          "name_en": "Transport or Taxi License",
+          "description": "ترخيص سيارة للنقل العام أو الأجرة",
+          "submission_method": [
+            "هيئة النقل العام"
+          ],
+          "is_online": false
+        }
+      ]
+    },
+    {
+      "id": "antiquities_tourism",
+      "name": "الآثار والسياحة",
+      "name_en": "Antiquities and Tourism",
+      "authority": {
+        "name": "وزارة السياحة والآثار",
+        "name_en": "Ministry of Tourism and Antiquities"
+      },
+      "services": [
+        {
+          "id": "tour_guide_license",
+          "name": "رخصة مرشد سياحي",
+          "name_en": "Tour Guide License",
+          "description": "استخراج رخصة العمل كمرشد سياحي",
+          "submission_method": [
+            "وزارة السياحة"
+          ],
+          "is_online": false
+        },
+        {
+          "id": "hotel_license",
+          "name": "ترخيص فندق أو منشأة سياحية",
+          "name_en": "Hotel or Tourist Facility License",
+          "description": "ترخيص فنادق ومنشآت سياحية",
+          "submission_method": [
+            "وزارة السياحة",
+            "غرفة المنشآت السياحية"
+          ],
+          "is_online": false
+        }
+      ]
+    }
+  ],
+  "important_notes": [
+    "هذا الدليل يحتوي على معلومات شاملة محدثة حتى فبراير 2026",
+    "للحصول على أحدث المعلومات، يُرجى زيارة المواقع الرسمية للجهات المعنية",
+    "بعض الخدمات قد تتطلب رسوم إضافية أو مستندات أخرى حسب الحالة",
+    "المواعيد والرسوم قابلة للتغيير، يُرجى التأكد من الجهة المختصة قبل التقديم",
+    "الخدمات الإلكترونية متاحة 24/7 عبر منصة مصر الرقمية"
+  ],
+  "emergency_numbers": [
+    {
+      "service": "الشرطة",
+      "service_en": "Police",
+      "number": "122"
+    },
+    {
+      "service": "الإسعاف",
+      "service_en": "Ambulance",
+      "number": "123"
+    },
+    {
+      "service": "الحريق",
+      "service_en": "Fire",
+      "number": "180"
+    },
+    {
+      "service": "الغاز (طوارئ)",
+      "service_en": "Gas Emergency",
+      "number": "129"
+    },
+    {
+      "service": "خط نجدة الطفل",
+      "service_en": "Child Helpline",
+      "number": "16000"
+    },
+    {
+      "service": "الدعم النفسي",
+      "service_en": "Mental Health Support",
+      "number": "08008880700"
+    }
+  ],
+  "useful_contacts": [
+    {
+      "entity": "منصة مصر الرقمية",
+      "entity_en": "Egypt Digital Platform",
+      "hotline": "15999",
+      "website": "https://digital.gov.eg"
+    },
+    {
+      "entity": "التموين",
+      "entity_en": "Supply",
+      "hotline": "135"
+    },
+    {
+      "entity": "الضرائب",
+      "entity_en": "Taxes",
+      "hotline": "16395"
+    },
+    {
+      "entity": "الإسكان",
+      "entity_en": "Housing",
+      "hotline": "19526"
+    },
+    {
+      "entity": "الجوازات",
+      "entity_en": "Passports",
+      "hotline": "19296"
+    },
+    {
+      "entity": "حماية المستهلك",
+      "entity_en": "Consumer Protection",
+      "hotline": "19588"
+    }
+  ]
+}
