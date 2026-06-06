@@ -7,14 +7,26 @@ import usersRoutes from "./routes/users.js";
 import votesRouter from "./routes/votes.js";
 import settingsRoutes from "./routes/settings.js";
 import chatRoutes from "./routes/chat.js";
-import session from 'express-session';
+import session from "express-session";
+import connectPg from "connect-pg-simple";
 dotenv.config();
 
 const app = express();
 const port = Number(process.env.PORT || 3000);
 
 app.use(express.json());
-app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
+const PgSession = connectPg(session);
+app.use(
+  session({
+    store: new PgSession({
+      conString: process.env.SUPABASE_URL,
+    }),
+    secret: process.env.SESSION_SECRET || "daleel-dev-session-secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: true },
+  }),
+);
 app.use("/auth", authRoutes);
 app.use("/services", servicesRoutes);
 app.use("/categories", categoriesRoutes);
