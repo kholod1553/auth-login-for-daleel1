@@ -4,6 +4,8 @@ Backend API for the Daleel project using Express and Supabase.
 
 ## What Was Fixed
 
+- Replaced the old Gemini chat route with a backend RAG chat flow based on a local dataset and optional Groq enhancement.
+- Preserved backward compatibility for the previous chat path through `POST /chat/message`.
 - Fixed protected routes so they use the logged-in user's token with Supabase.
 - Fixed `DELETE /services/:id`, which was incorrectly nested inside the update route.
 - Added a real `GET /categories` endpoint.
@@ -12,6 +14,7 @@ Backend API for the Daleel project using Express and Supabase.
 - Added local startup support while keeping Vercel compatibility.
 - Removed an unused duplicated auth middleware file.
 - Added `supabase/setup.sql` to create categories, seed data, and fix RLS policies for authenticated CRUD on services.
+- Added `sql/chat_messages.sql` for storing chat history by session.
 
 ## Tech Stack
 
@@ -27,6 +30,13 @@ Create a `.env` file using `.env.example`:
 ```env
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_ANON_KEY=your-supabase-anon-key
+PORT=3000
+SESSION_SECRET=change-me
+GROQ_API_KEY=your-groq-api-key
+CHAT_MODEL=llama-3.3-70b-versatile
+CHAT_TEMPERATURE=0.6
+CHAT_BRAND_TONE=professional
+FRONTEND_ORIGIN=http://localhost:5173
 ```
 
 ## Install
@@ -67,6 +77,13 @@ http://localhost:3000
 
 - `GET /categories`
 
+### Chat
+
+- `POST /chat`
+- `GET /chat`
+- `POST /chat/message`
+- `GET /chat/message`
+
 ## Authentication
 
 Protected endpoints require:
@@ -84,6 +101,20 @@ Protected endpoints:
 - `POST /services`
 - `PUT /services/:id`
 - `DELETE /services/:id`
+
+## Chatbot
+
+The chatbot now runs inside the backend using:
+
+- local dataset: `data/egypt_government_services.json`
+- retrieval layer: `lib/chatDataset.js`
+- answer generation layer: `lib/chatService.js`
+- history storage layer: `lib/chatHistoryStore.js`
+- optional Groq enhancement through `GROQ_API_KEY`
+
+If Groq is not configured, the chatbot still works from the local retrieval layer.
+
+The chat endpoints return the new response shape, and also include `reply` for backward compatibility with older frontend code that expected a simple text field.
 
 ## Current Supabase Reality
 
@@ -107,7 +138,7 @@ Because of that, the API now does two helpful things:
 
 ## Required Supabase Fix
 
-Run the SQL in [supabase/setup.sql](C:/Users/pc/Documents/Codex/2026-04-18-https-github-com-kholod1553-auth-login/repo/supabase/setup.sql) inside the Supabase SQL editor for this project.
+Run the SQL in `supabase/setup.sql` inside the Supabase SQL editor for this project.
 
 That script will:
 
@@ -116,6 +147,8 @@ That script will:
 - seed services when the table is empty
 - allow public reads for services and categories
 - allow authenticated users to insert, update, and delete services
+
+Also run `sql/chat_messages.sql` in the Supabase SQL editor to create the chat history table used by `/chat`.
 
 ## Request Body Notes
 
