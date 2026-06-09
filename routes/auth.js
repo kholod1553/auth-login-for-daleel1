@@ -184,5 +184,18 @@ router.post("/forgot-password", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+    router.get("/google", async (req, res) => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+            redirectTo: "https://auth-login-for-daleel1-3nl2.vercel.app/auth/callback",
+        },
+    });
+    if (error) return res.status(400).json({ error: error.message });
+    res.redirect(data.url);
+});
 
+router.get("/callback", async (req, res) => {
+    res.redirect("https://auth-login-for-daleel1-3nl2.vercel.app");
+});
 export default router;
