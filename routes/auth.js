@@ -9,8 +9,8 @@ const router = express.Router();
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: "your@gmail.com",
-        pass: "your-app-password",
+        user: "daleel.support.csi@gmail.com",
+        pass: "bbna dyid clot yplj",
     },
 });
 
@@ -138,7 +138,7 @@ router.post("/send-otp-email", async (req, res) => {
             .update({ otp, otp_expiry: otpExpiry })
             .eq("email", email);
         await transporter.sendMail({
-            from: "your@gmail.com",
+            from: "daleel.support.csi@gmail.com",
             to: email,
             subject: "OTP Verification",
             text: `Your OTP is: ${otp}`,
@@ -176,7 +176,7 @@ router.post("/forgot-password", async (req, res) => {
     try {
         const { email } = req.body;
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: "yourapp://reset-password",
+            redirectTo:"https://auth-login-for-daleel1-3nl2.vercel.app/reset-password",
         });
         if (error) return res.status(400).json({ error: error.message });
         res.json({ message: "تم إرسال رابط إعادة تعيين كلمة المرور" });
