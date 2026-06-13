@@ -4,12 +4,10 @@ import { requireAuth } from "../middleware/auth.js";
 import { FALLBACK_SERVICES } from "../data/fallbackData.js";
 
 const router = express.Router();
-
 const normalizeService = (service) => ({
   ...service,
   title: service.title ?? service.name ?? null,
 });
-
 const toWritePayload = (body) => {
   const payload = {};
   if (body.name !== undefined || body.title !== undefined) {
@@ -25,7 +23,6 @@ const toWritePayload = (body) => {
   payload.status = "pending";
   return payload;
 };
-
 const formatWriteError = (error) => {
   if (error?.message?.includes("row-level security policy")) {
     return {
@@ -38,13 +35,11 @@ const formatWriteError = (error) => {
     body: { error: error?.message ?? "Unknown error" },
   };
 };
-
 router.get("/", async (req, res) => {
   const { data, error } = await supabase.from("services").select("*").eq("is_public", true);
   if (error || !data?.length) return res.json(FALLBACK_SERVICES);
   res.json(data.map(normalizeService));
 });
-
 router.get("/my-services", requireAuth, async (req, res) => {
   const { data, error } = await req.supabase.from("services").select("*");
   if (error) {
@@ -53,19 +48,16 @@ router.get("/my-services", requireAuth, async (req, res) => {
   }
   res.json((data || []).map(normalizeService));
 });
-
 router.get("/pending", requireAuth, async (req, res) => {
   const { data, error } = await supabase.from("services").select("*").eq("status", "pending");
   if (error) return res.status(400).json({ error: error.message });
   res.json(data.map(normalizeService));
 });
-
 router.get("/popular", async (req, res) => {
   const { data, error } = await supabase.from("services").select("*").eq("is_public", true).limit(10);
   if (error) return res.status(400).json({ error: error.message });
   res.json(data.map(normalizeService));
 });
-
 router.get("/search", async (req, res) => {
   const { q } = req.query;
   if (!q) return res.status(400).json({ error: "Search query is required" });
@@ -76,7 +68,6 @@ router.get("/search", async (req, res) => {
   if (!data?.length) return res.status(404).json({ error: "لا توجد نتائج" });
   res.json(data.map(normalizeService));
 });
-
 router.post("/", requireAuth, async (req, res) => {
   const payload = toWritePayload(req.body);
   payload.user_id = req.user.id;
@@ -90,7 +81,6 @@ router.post("/", requireAuth, async (req, res) => {
   }
   res.status(201).json(normalizeService(data));
 });
-
 router.put("/:id/approve", requireAuth, async (req, res) => {
   const { id } = req.params;
   const { data, error } = await supabase
@@ -100,7 +90,6 @@ router.put("/:id/approve", requireAuth, async (req, res) => {
   if (!data) return res.status(404).json({ error: "Service not found" });
   res.json({ message: "Service approved", service: data });
 });
-
 router.put("/:id/reject", requireAuth, async (req, res) => {
   const { id } = req.params;
   const { data, error } = await supabase
@@ -110,7 +99,6 @@ router.put("/:id/reject", requireAuth, async (req, res) => {
   if (!data) return res.status(404).json({ error: "Service not found" });
   res.json({ message: "Service rejected", service: data });
 });
-
 router.put("/:id", requireAuth, async (req, res) => {
   const { id } = req.params;
   const updates = toWritePayload(req.body);
@@ -126,7 +114,6 @@ router.put("/:id", requireAuth, async (req, res) => {
   if (!data) return res.status(404).json({ error: "Service not found" });
   res.json({ message: "Service updated successfully", updated: normalizeService(data) });
 });
-
 router.delete("/:id", requireAuth, async (req, res) => {
   const { id } = req.params;
   const { data, error } = await supabase
@@ -138,7 +125,6 @@ router.delete("/:id", requireAuth, async (req, res) => {
   if (!data) return res.status(404).json({ error: "Service not found" });
   res.json({ message: "Service deleted successfully", deletedId: data.id });
 });
-
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   const { data, error } = await supabase
