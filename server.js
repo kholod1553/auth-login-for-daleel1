@@ -8,7 +8,6 @@ import votesRouter from "./routes/votes.js";
 import settingsRoutes from "./routes/settings.js";
 import chatRoutes from "./routes/chat.js";
 import session from "express-session";
-import connectPg from "connect-pg-simple";
 
 dotenv.config();
 const app = express();
@@ -25,17 +24,17 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-const PgSession = connectPg(session);
 app.use(
   session({
-    store: new PgSession({
-      conString: process.env.SUPABASE_URL,
-    }),
-    secret: process.env.SESSION_SECRET || "daleel-dev-session-secret",
+    secret: "daleel-dev-secret",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: true },
-  }),
+    cookie: {
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 24,
+      sameSite: "lax",
+    },
+  })
 );
 
 app.use("/auth", authRoutes);

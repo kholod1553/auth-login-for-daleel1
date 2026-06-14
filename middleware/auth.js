@@ -7,10 +7,18 @@ export const requireAuth = async (req, res, next) => {
   // 1. تحقق من الـ Session أولاً
   if (req.session?.user) {
     req.user = req.session.user;
+    req.accessToken = req.session.user.accessToken;
+
+    // بدون التوكن مفيش RLS صحيح — لازم يكون محفوظ في الـ session
+    if (!req.accessToken) {
+      return res.status(401).json({ message: "Session expired. Please log in again." });
+    }
+
+    req.supabase = createRequestSupabaseClient(req.accessToken);
     return next();
   }
 
-  // 2. تحقق من الـ Token
+  // 2. تحقق من الـ Token (Bearer)
   const authHeader = req.headers.authorization;
   const token = authHeader?.startsWith("Bearer ")
     ? authHeader.slice("Bearer ".length)
@@ -21,7 +29,6 @@ export const requireAuth = async (req, res, next) => {
   }
 
   const { data, error } = await supabase.auth.getUser(token);
-
   if (error || !data?.user) {
     return res.status(401).json({ error: "Invalid token" });
   }
