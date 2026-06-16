@@ -9,8 +9,8 @@ const router = express.Router();
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: "your@gmail.com",
-        pass: "your-app-password",
+        user: "daleel.support.csi@gmail.com",
+        pass: "bbna dyid clot yplj",
     },
 });
 
@@ -66,6 +66,7 @@ router.post("/login", async (req, res) => {
             id: data.user.id,
             email: data.user.email,
             name: data.user.user_metadata?.name,
+          accessToken: data.session.access_token,
         };
         res.json(data);
     } catch (err) {
@@ -138,7 +139,7 @@ router.post("/send-otp-email", async (req, res) => {
             .update({ otp, otp_expiry: otpExpiry })
             .eq("email", email);
         await transporter.sendMail({
-            from: "your@gmail.com",
+            from: "daleel.support.csi@gmail.com",
             to: email,
             subject: "OTP Verification",
             text: `Your OTP is: ${otp}`,
@@ -176,7 +177,7 @@ router.post("/forgot-password", async (req, res) => {
     try {
         const { email } = req.body;
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: "yourapp://reset-password",
+            redirectTo:"https://auth-login-for-daleel1-3nl2.vercel.app/reset-password",
         });
         if (error) return res.status(400).json({ error: error.message });
         res.json({ message: "تم إرسال رابط إعادة تعيين كلمة المرور" });
@@ -184,5 +185,18 @@ router.post("/forgot-password", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+    router.get("/google", async (req, res) => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+            redirectTo: "https://auth-login-for-daleel1-3nl2.vercel.app/auth/callback",
+        },
+    });
+    if (error) return res.status(400).json({ error: error.message });
+    res.redirect(data.url);
+});
 
+router.get("/callback", async (req, res) => {
+    res.redirect("https://auth-login-for-daleel1-3nl2.vercel.app");
+});
 export default router;

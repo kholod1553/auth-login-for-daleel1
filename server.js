@@ -9,7 +9,6 @@ import settingsRoutes from "./routes/settings.js";
 import chatRoutes from "./routes/chat.js";
 
 dotenv.config();
-
 const app = express();
 const port = Number(process.env.PORT || 3000);
 
@@ -27,9 +26,14 @@ const loadSessionMiddleware = async () => {
     const { default: session } = await import("express-session");
 
     return session({
-      secret: process.env.SESSION_SECRET || "daleel-dev-session-secret",
+      secret: process.env.SESSION_SECRET || "daleel-dev-secret",
       resave: false,
       saveUninitialized: false,
+      cookie: {
+        secure: false,
+        maxAge: 1000 * 60 * 60 * 24,
+        sameSite: "lax",
+      },
     });
   } catch (error) {
     console.warn(
@@ -41,18 +45,10 @@ const loadSessionMiddleware = async () => {
 
 app.use((req, res, next) => {
   const allowedOrigin = process.env.FRONTEND_ORIGIN || "*";
-
   res.header("Access-Control-Allow-Origin", allowedOrigin);
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-  );
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(204);
-  }
-
+  if (req.method === "OPTIONS") return res.sendStatus(204);
   next();
 });
 
@@ -70,16 +66,7 @@ app.use("/chat", chatRoutes);
 app.get("/", (req, res) => {
   res.json({
     message: "Daleel API is running",
-    endpoints: [
-      "/auth",
-      "/services",
-      "/categories",
-      "/users",
-      "/votes",
-      "/settings",
-      "/chat",
-      "/chat/message",
-    ],
+    endpoints: ["/auth", "/services", "/categories", "/users", "/votes", "/settings", "/chat"],
   });
 });
 
