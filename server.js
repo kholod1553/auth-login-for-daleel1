@@ -7,11 +7,41 @@ import usersRoutes from "./routes/users.js";
 import votesRouter from "./routes/votes.js";
 import settingsRoutes from "./routes/settings.js";
 import chatRoutes from "./routes/chat.js";
-import session from "express-session";
 
 dotenv.config();
 const app = express();
 const port = Number(process.env.PORT || 3000);
+
+const createFallbackSessionMiddleware = () => (req, res, next) => {
+  req.session = {
+    destroy(callback) {
+      if (typeof callback === "function") callback();
+    },
+  };
+  next();
+};
+
+const loadSessionMiddleware = async () => {
+  try {
+    const { default: session } = await import("express-session");
+
+    return session({
+      secret: process.env.SESSION_SECRET || "daleel-dev-secret",
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        secure: false,
+        maxAge: 1000 * 60 * 60 * 24,
+        sameSite: "lax",
+      },
+    });
+  } catch (error) {
+    console.warn(
+      "express-session is unavailable; using stateless session fallback.",
+    );
+    return createFallbackSessionMiddleware();
+  }
+};
 
 app.use((req, res, next) => {
   const allowedOrigin = process.env.FRONTEND_ORIGIN || "*";
@@ -23,19 +53,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-
-app.use(
-  session({
-    secret: "daleel-dev-secret",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: false,
-      maxAge: 1000 * 60 * 60 * 24,
-      sameSite: "lax",
-    },
-  })
-);
+app.use(await loadSessionMiddleware());
 
 app.use("/auth", authRoutes);
 app.use("/services", servicesRoutes);
@@ -54,6 +72,22 @@ app.get("/", (req, res) => {
 
 app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });
+});
+
+app.use((error, req, res, next) => {
+  console.error("Unhandled backend error:", error);
+
+  if (res.headersSent) {
+    return next(error);
+  }
+
+  res.status(error.status || 500).json({
+    error: "Internal server error",
+    message:
+      process.env.NODE_ENV === "production"
+        ? "Unexpected backend error"
+        : error.message,
+  });
 });
 
 if (!process.env.VERCEL) {
