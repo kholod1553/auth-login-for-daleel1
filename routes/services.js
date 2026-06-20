@@ -99,6 +99,84 @@ router.put("/:id/reject", requireAuth, async (req, res) => {
   if (!data) return res.status(404).json({ error: "Service not found" });
   res.json({ message: "Service rejected", service: data });
 });
+
+// ============================================
+// Service Steps (خطوات تنفيذ الخدمة)
+// ============================================
+
+// GET /services/:id/steps - جلب خطوات خدمة معينة
+router.get("/:id/steps", async (req, res) => {
+  const { id } = req.params;
+  const { data, error } = await supabase
+    .from("service_steps")
+    .select("*")
+    .eq("service_id", id)
+    .order("step_number", { ascending: true });
+  if (error) return res.status(400).json({ error: error.message });
+  res.json(data);
+});
+
+// POST /services/:id/steps - إضافة خطوة جديدة (لازم تسجيل دخول)
+router.post("/:id/steps", requireAuth, async (req, res) => {
+  const { id } = req.params;
+  const { step_number, title, description } = req.body;
+  if (!step_number || !title) {
+    return res.status(400).json({ error: "step_number و title مطلوبين" });
+  }
+  const { data, error } = await supabase
+    .from("service_steps")
+    .insert([{ service_id: id, step_number, title, description }])
+    .select()
+    .maybeSingle();
+  if (error) {
+    const f = formatWriteError(error);
+    return res.status(f.status).json(f.body);
+  }
+  res.status(201).json(data);
+});
+
+// PUT /services/:id/steps/:stepId - تعديل خطوة (لازم تسجيل دخول)
+router.put("/:id/steps/:stepId", requireAuth, async (req, res) => {
+  const { stepId } = req.params;
+  const { step_number, title, description } = req.body;
+  const updates = {};
+  if (step_number !== undefined) updates.step_number = step_number;
+  if (title !== undefined) updates.title = title;
+  if (description !== undefined) updates.description = description;
+  if (Object.keys(updates).length === 0) {
+    return res.status(400).json({ error: "At least one field is required for update" });
+  }
+  const { data, error } = await supabase
+    .from("service_steps")
+    .update(updates)
+    .eq("id", stepId)
+    .select()
+    .maybeSingle();
+  if (error) {
+    const f = formatWriteError(error);
+    return res.status(f.status).json(f.body);
+  }
+  if (!data) return res.status(404).json({ error: "Step not found" });
+  res.json(data);
+});
+
+// DELETE /services/:id/steps/:stepId - حذف خطوة (لازم تسجيل دخول)
+router.delete("/:id/steps/:stepId", requireAuth, async (req, res) => {
+  const { stepId } = req.params;
+  const { data, error } = await supabase
+    .from("service_steps")
+    .delete()
+    .eq("id", stepId)
+    .select("id")
+    .maybeSingle();
+  if (error) {
+    const f = formatWriteError(error);
+    return res.status(f.status).json(f.body);
+  }
+  if (!data) return res.status(404).json({ error: "Step not found" });
+  res.json({ message: "تم حذف الخطوة بنجاح", deletedId: data.id });
+});
+
 router.put("/:id", requireAuth, async (req, res) => {
   const { id } = req.params;
   const updates = toWritePayload(req.body);
