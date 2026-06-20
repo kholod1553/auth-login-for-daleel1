@@ -1,6 +1,5 @@
 import express from "express";
 import { requireAuth } from "../middleware/auth.js";
-
 const router = express.Router();
 
 router.get("/", requireAuth, async (req, res) => {
@@ -9,9 +8,7 @@ router.get("/", requireAuth, async (req, res) => {
     .select("*")
     .eq("user_id", req.user.id)
     .maybeSingle();
-
   if (error) return res.status(400).json({ error: error.message });
-
   if (!data) {
     const { data: newSettings, error: insertError } = await req.supabase
       .from("user_settings")
@@ -21,11 +18,46 @@ router.get("/", requireAuth, async (req, res) => {
     if (insertError) return res.status(400).json({ error: insertError.message });
     return res.json(newSettings);
   }
-
   res.json(data);
 });
 
-// PUT /settings/notifications
+// GET /settings/notifications - جلب كل إشعارات المستخدم
+router.get("/notifications", requireAuth, async (req, res) => {
+  const { data, error } = await req.supabase
+    .from("notifications")
+    .select("*")
+    .eq("user_id", req.user.id)
+    .order("created_at", { ascending: false });
+
+  if (error) return res.status(400).json({ error: error.message });
+  res.json(data);
+});
+
+// POST /settings/notifications - إنشاء إشعار جديد
+router.post("/notifications", requireAuth, async (req, res) => {
+  const { title, message, type } = req.body;
+
+  if (!title || !message) {
+    return res.status(400).json({ error: "title و message مطلوبين" });
+  }
+
+  const { data, error } = await req.supabase
+    .from("notifications")
+    .insert([{
+      user_id: req.user.id,
+      title,
+      message,
+      type: type || "general",
+      is_read: false,
+    }])
+    .select()
+    .maybeSingle();
+
+  if (error) return res.status(400).json({ error: error.message });
+  res.status(201).json(data);
+});
+
+// PUT /settings/notifications - تحديث إعدادات الإشعارات (تفعيل/تعطيل صوت واهتزاز)
 router.put("/notifications", requireAuth, async (req, res) => {
   const { notifications, sound, vibration } = req.body;
   const { data, error } = await req.supabase
@@ -63,6 +95,7 @@ router.put("/language", requireAuth, async (req, res) => {
   if (error) return res.status(400).json({ error: error.message });
   res.json(data);
 });
+
 // POST /settings/clear-cache
 router.post("/clear-cache", requireAuth, (req, res) => {
   res.json({ message: "تم مسح التخزين المؤقت بنجاح" });
