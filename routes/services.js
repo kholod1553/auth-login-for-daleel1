@@ -209,7 +209,15 @@ router.get("/:id", async (req, res) => {
     .from("services").select("*").eq("id", id).eq("is_public", true).maybeSingle();
   if (error) return res.status(400).json({ error: error.message });
   if (!data) return res.status(404).json({ error: "Service not found" });
-  res.json(normalizeService(data));
+
+  const { data: stepsData, error: stepsError } = await supabase
+    .from("service_steps")
+    .select("*")
+    .eq("service_id", id)
+    .order("step_number", { ascending: true });
+  if (stepsError) return res.status(400).json({ error: stepsError.message });
+
+  res.json({ ...normalizeService(data), steps: stepsData || [] });
 });
 
 export default router;
