@@ -68,7 +68,7 @@ app.use("/comments", commentsRouter);
 app.get("/", (req, res) => {
   res.json({
     message: "Daleel API is running",
-    endpoints: ["/auth", "/services", "/categories", "/users", "/votes", "/settings", "/chat"],
+    endpoints: ["/auth", "/services", "/categories", "/users", "/votes", "/settings", "/chat", "/comments"],
   });
 });
 
