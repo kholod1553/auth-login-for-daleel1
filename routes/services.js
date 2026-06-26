@@ -19,6 +19,10 @@ const toWritePayload = (body) => {
   if (body.category_id !== undefined) payload.category_id = body.category_id;
   if (body.category_name !== undefined) payload.category_name = body.category_name;
   if (body.service_id !== undefined) payload.service_id = body.service_id;
+  if (body.price_details !== undefined) payload.price_details = body.price_details;
+  if (body.duration !== undefined) payload.duration = body.duration;
+  if (body.available_times !== undefined) payload.available_times = body.available_times;
+  if (body.fees !== undefined) payload.fees = body.fees;
   payload.is_public = false;
   payload.status = "pending";
   return payload;
