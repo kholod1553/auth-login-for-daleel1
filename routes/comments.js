@@ -49,20 +49,21 @@ router.post("/:serviceId", requireAuth, async (req, res) => {
     }
 });
 
-// DELETE /comments/:commentId - حذف كومنت
-router.delete("/:commentId", requireAuth, async (req, res) => {
+// DELETE /comments/by-service/:serviceId - حذف كل كومنتات خدمة
+router.delete("/by-service/:serviceId", requireAuth, async (req, res) => {
     try {
-        const { commentId } = req.params;
+        const { serviceId } = req.params;
         const { data, error } = await supabase
             .from("comments")
             .delete()
-            .eq("id", commentId)
+            .eq("service_id", serviceId)
             .eq("user_id", req.user.id)
-            .select("id")
-            .maybeSingle();
+            .select("id");
+            
         if (error) return res.status(400).json({ error: error.message });
-        if (!data) return res.status(404).json({ error: "Comment not found" });
-        res.json({ message: "تم حذف الكومنت بنجاح" });
+        if (!data.length) return res.status(404).json({ error: "No comments found" });
+        
+        res.json({ message: `تم حذف ${data.length} كومنت` });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
