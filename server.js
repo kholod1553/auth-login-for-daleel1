@@ -7,6 +7,7 @@ import usersRoutes from "./routes/users.js";
 import votesRouter from "./routes/votes.js";
 import settingsRoutes from "./routes/settings.js";
 import chatRoutes from "./routes/chat.js";
+import commentsRouter from "./routes/comments.js";
 
 dotenv.config();
 const app = express();
@@ -62,6 +63,7 @@ app.use("/users", usersRoutes);
 app.use("/votes", votesRouter);
 app.use("/settings", settingsRoutes);
 app.use("/chat", chatRoutes);
+app.use("/comments", commentsRouter);
 
 app.get("/", (req, res) => {
   res.json({
