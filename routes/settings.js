@@ -48,13 +48,73 @@ router.post("/notifications", requireAuth, async (req, res) => {
       title,
       message,
       type: type || "general",
-      is_read: true,
+      is_read: false, // ✅ الإشعار الجديد بيكون غير مقروء
     }])
     .select()
     .maybeSingle();
 
   if (error) return res.status(400).json({ error: error.message });
   res.status(201).json(data);
+});
+
+// ✅ PUT /settings/notifications/:id/toggle - تبديل حالة is_read
+router.put("/notifications/:id/toggle", requireAuth, async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // جلب الـ notification الحالي
+    const { data: notification, error: fetchError } = await req.supabase
+      .from("notifications")
+      .select("is_read")
+      .eq("id", id)
+      .eq("user_id", req.user.id)
+      .maybeSingle();
+
+    if (fetchError) return res.status(400).json({ error: fetchError.message });
+    if (!notification) return res.status(404).json({ error: "Notification not found" });
+
+    // عكس القيمة (toggle)
+    const newIsRead = !notification.is_read;
+
+    // تحديث القيمة
+    const { data, error } = await req.supabase
+      .from("notifications")
+      .update({ is_read: newIsRead })
+      .eq("id", id)
+      .eq("user_id", req.user.id)
+      .select()
+      .maybeSingle();
+
+    if (error) return res.status(400).json({ error: error.message });
+
+    res.json({
+      message: `Notification marked as ${newIsRead ? "read" : "unread"}`,
+      data
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ✅ PUT /settings/notifications/read-all - تحديد كل الإشعارات كمقروءة
+router.put("/notifications/read-all", requireAuth, async (req, res) => {
+  try {
+    const { data, error } = await req.supabase
+      .from("notifications")
+      .update({ is_read: true })
+      .eq("user_id", req.user.id)
+      .eq("is_read", false)
+      .select();
+
+    if (error) return res.status(400).json({ error: error.message });
+
+    res.json({
+      message: `Marked ${data.length} notifications as read`,
+      count: data.length
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // PUT /settings/notifications - تحديث إعدادات الإشعارات (تفعيل/تعطيل صوت واهتزاز)
