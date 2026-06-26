@@ -66,7 +66,7 @@ router.post("/login", async (req, res) => {
             id: data.user.id,
             email: data.user.email,
             name: data.user.user_metadata?.name,
-          accessToken: data.session.access_token,
+            accessToken: data.session.access_token,
         };
         res.json(data);
     } catch (err) {
@@ -123,27 +123,14 @@ router.post("/resend-otp", async (req, res) => {
 router.post("/send-otp-email", async (req, res) => {
     try {
         const { email } = req.body;
-        const { data: user, error } = await supabase
-            .from("users")
-            .select("*")
-            .eq("email", email)
-            .single();
-        if (error || !user)
-            return res.status(400).json({ message: "User not found" });
-        if (user.is_verified)
-            return res.status(400).json({ message: "User already verified" });
-        const otp = generateOTP();
-        const otpExpiry = new Date(Date.now() + 10 * 60 * 1000).toISOString();
-        await supabase
-            .from("users")
-            .update({ otp, otp_expiry: otpExpiry })
-            .eq("email", email);
-        await transporter.sendMail({
-            from: "daleel.support.csi@gmail.com",
-            to: email,
-            subject: "OTP Verification",
-            text: `Your OTP is: ${otp}`,
+
+        const { error } = await supabase.auth.signInWithOtp({
+            email,
+            options: { shouldCreateUser: false },
         });
+
+        if (error) return res.status(400).json({ message: "User not found" });
+
         res.json({ message: "OTP sent to email successfully." });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -177,7 +164,7 @@ router.post("/forgot-password", async (req, res) => {
     try {
         const { email } = req.body;
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo:"https://auth-login-for-daleel1-3nl2.vercel.app/reset-password",
+            redirectTo: "https://auth-login-for-daleel1-3nl2.vercel.app/reset-password",
         });
         if (error) return res.status(400).json({ error: error.message });
         res.json({ message: "تم إرسال رابط إعادة تعيين كلمة المرور" });
@@ -185,7 +172,8 @@ router.post("/forgot-password", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
-    router.get("/google", async (req, res) => {
+
+router.get("/google", async (req, res) => {
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
@@ -199,4 +187,5 @@ router.post("/forgot-password", async (req, res) => {
 router.get("/callback", async (req, res) => {
     res.redirect("https://auth-login-for-daleel1-3nl2.vercel.app");
 });
+
 export default router;
