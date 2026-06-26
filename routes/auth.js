@@ -124,19 +124,38 @@ router.post("/send-otp-email", async (req, res) => {
     try {
         const { email } = req.body;
 
-        const { error } = await supabase.auth.signInWithOtp({
-            email,
-            options: { shouldCreateUser: false },
-        });
+        // تأكد إن المستخدم موجود في Supabase Auth
+        const { data: { users }, error: adminError } = await supabase.auth.admin.listUsers();
+        if (adminError) return res.status(500).json({ error: adminError.message });
 
-        if (error) return res.status(400).json({ message: "User not found" });
+        const userExists = users.find(u => u.email === email);
+        if (!userExists) return res.status(400).json({ message: "User not found" });
+
+        // جنرت OTP واحتفظ بيه في جدول users
+        const otp = generateOTP();
+        const otpExpiry = new Date(Date.now() + 10 * 60 * 1000).toISOString();
+
+        // upsert عشان لو مش موجود في جدول users يعمله
+        await supabase.from("users").upsert({
+            email,
+            otp,
+            otp_expiry: otpExpiry,
+            is_verified: false,
+        }, { onConflict: "email" });
+
+        // ابعت الـ OTP عن طريق nodemailer
+        await transporter.sendMail({
+            from: "daleel.support.csi@gmail.com",
+            to: email,
+            subject: "OTP Verification",
+            text: `كود التحقق الخاص بك: ${otp}`,
+        });
 
         res.json({ message: "OTP sent to email successfully." });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
-
 router.post("/verify-otp-email", async (req, res) => {
     try {
         const { email, otp } = req.body;
