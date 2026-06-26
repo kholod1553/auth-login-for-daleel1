@@ -6,7 +6,7 @@ if (!supabaseAdmin) {
 }
 
 const data = JSON.parse(
-  fs.readFileSync("./data/NEW_egypt_government_services.json", "utf8")
+  fs.readFileSync("./data/egypt_government_services.json", "utf8")
 );
 
 async function updateServices() {
