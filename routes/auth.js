@@ -1,5 +1,5 @@
 import express from "express";
-import { supabase } from "../supabaseClient.js";
+import { supabase, supabaseAdmin } from "../supabaseClient.js";
 import { requireAuth } from "../middleware/auth.js";
 import nodemailer from "nodemailer";
 import crypto from "crypto";
@@ -124,18 +124,21 @@ router.post("/send-otp-email", async (req, res) => {
     try {
         const { email } = req.body;
 
+        if (!supabaseAdmin)
+            return res.status(500).json({ error: "Service role key not configured" });
+
         // تأكد إن المستخدم موجود في Supabase Auth
-        const { data: { users }, error: adminError } = await supabase.auth.admin.listUsers();
+        const { data: { users }, error: adminError } = await supabaseAdmin.auth.admin.listUsers();
         if (adminError) return res.status(500).json({ error: adminError.message });
 
         const userExists = users.find(u => u.email === email);
         if (!userExists) return res.status(400).json({ message: "User not found" });
 
-        // جنرت OTP واحتفظ بيه في جدول users
+        // جنرت OTP
         const otp = generateOTP();
         const otpExpiry = new Date(Date.now() + 10 * 60 * 1000).toISOString();
 
-        // upsert عشان لو مش موجود في جدول users يعمله
+        // upsert في جدول users
         await supabase.from("users").upsert({
             email,
             otp,
@@ -156,6 +159,7 @@ router.post("/send-otp-email", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
 router.post("/verify-otp-email", async (req, res) => {
     try {
         const { email, otp } = req.body;
