@@ -48,7 +48,7 @@ router.post("/notifications", requireAuth, async (req, res) => {
       title,
       message,
       type: type || "general",
-      is_read: false,
+      is_read: true,
     }])
     .select()
     .maybeSingle();
