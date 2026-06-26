@@ -35,7 +35,7 @@ router.post("/:serviceId", requireAuth, async (req, res) => {
             .insert([{
                 service_id: serviceId,
                 user_id: req.user.id,
-                user_name: req.user.name ?? req.user.email,
+               user_name: req.user.user_metadata?.name ?? req.user.name ?? req.user.email,
                 content,
                 rating: rating ?? null,
             }])
