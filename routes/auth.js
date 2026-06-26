@@ -119,34 +119,28 @@ router.post("/resend-otp", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
-
 router.post("/send-otp-email", async (req, res) => {
     try {
         const { email } = req.body;
 
-        if (!supabaseAdmin)
-            return res.status(500).json({ error: "Service role key not configured" });
+        // دور في جدول users مباشرة
+        const { data: user, error } = await supabase
+            .from("users")
+            .select("email")
+            .eq("email", email)
+            .single();
 
-        // تأكد إن المستخدم موجود في Supabase Auth
-        const { data: { users }, error: adminError } = await supabaseAdmin.auth.admin.listUsers();
-        if (adminError) return res.status(500).json({ error: adminError.message });
+        if (error || !user)
+            return res.status(400).json({ message: "User not found" });
 
-        const userExists = users.find(u => u.email === email);
-        if (!userExists) return res.status(400).json({ message: "User not found" });
-
-        // جنرت OTP
         const otp = generateOTP();
         const otpExpiry = new Date(Date.now() + 10 * 60 * 1000).toISOString();
 
-        // upsert في جدول users
-        await supabase.from("users").upsert({
-            email,
+        await supabase.from("users").update({
             otp,
             otp_expiry: otpExpiry,
-            is_verified: false,
-        }, { onConflict: "email" });
+        }).eq("email", email);
 
-        // ابعت الـ OTP عن طريق nodemailer
         await transporter.sendMail({
             from: "daleel.support.csi@gmail.com",
             to: email,
