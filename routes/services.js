@@ -23,7 +23,7 @@ const toWritePayload = (body) => {
   if (body.duration !== undefined) payload.duration = body.duration;
   if (body.available_times !== undefined) payload.available_times = body.available_times;
   if (body.fees !== undefined) payload.fees = body.fees;
-  payload.is_public = false;
+  payload.is_public = true;
   payload.status = "pending";
   return payload;
 };
