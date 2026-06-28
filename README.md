@@ -69,9 +69,19 @@ http://localhost:3000
 
 - `GET /services`
 - `GET /services/my-services`
+- `GET /services/pending`
 - `POST /services`
 - `PUT /services/:id`
 - `DELETE /services/:id`
+
+### Service Discussion
+
+- `GET /comments/:serviceId`
+- `POST /comments/:serviceId`
+- `DELETE /comments/:commentId`
+- `GET /votes/:serviceId`
+- `GET /votes/:serviceId/my-vote`
+- `POST /votes/:serviceId`
 
 ### Categories
 
@@ -101,6 +111,31 @@ Protected endpoints:
 - `POST /services`
 - `PUT /services/:id`
 - `DELETE /services/:id`
+- `POST /comments/:serviceId`
+- `DELETE /comments/:commentId`
+- `GET /votes/:serviceId/my-vote`
+- `POST /votes/:serviceId`
+
+## Pending Service Discussion
+
+Users can suggest missing services through `POST /services`. Suggested services are created with `status: "pending"` and now include discussion metadata:
+
+```json
+{
+  "comments": [],
+  "comment_count": 0,
+  "votes": {
+    "upvotes": 0,
+    "downvotes": 0,
+    "score": 0,
+    "total": 0,
+    "user_vote": null
+  },
+  "vote_score": 0
+}
+```
+
+`GET /services/pending` returns pending services with a `comments` array and Reddit-style vote counts. `POST /votes/:serviceId` accepts `vote_type: "up"` or `vote_type: "down"`. Posting the same vote again removes it; posting the opposite vote changes it.
 
 ## Chatbot
 
@@ -149,6 +184,8 @@ That script will:
 - allow authenticated users to insert, update, and delete services
 
 Also run `sql/chat_messages.sql` in the Supabase SQL editor to create the chat history table used by `/chat`.
+
+Run `sql/service_discussion.sql` in the Supabase SQL editor to create the `comments` and `votes` tables and their RLS policies.
 
 ## Request Body Notes
 

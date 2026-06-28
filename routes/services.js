@@ -2,12 +2,31 @@ import express from "express";
 import { supabase } from "../supabaseClient.js";
 import { requireAuth } from "../middleware/auth.js";
 import { FALLBACK_SERVICES } from "../data/fallbackData.js";
+import {
+  getServiceEngagement,
+  getServiceEngagementMap,
+} from "../lib/serviceEngagement.js";
 
 const router = express.Router();
-const normalizeService = (service) => ({
+const normalizeService = (service, engagement = null) => ({
   ...service,
   title: service.title ?? service.name ?? null,
+  ...(engagement
+    ? {
+        comments: engagement.comments,
+        comment_count: engagement.comment_count,
+        votes: engagement.votes,
+        vote_score: engagement.vote_score,
+      }
+    : {}),
 });
+const attachEngagement = (services, engagementByServiceId) =>
+  (services || []).map((service) =>
+    normalizeService(
+      service,
+      engagementByServiceId.get(String(service.id)) || null,
+    ),
+  );
 const toWritePayload = (body) => {
   const payload = {};
   if (body.name !== undefined || body.title !== undefined) {
@@ -50,12 +69,20 @@ router.get("/my-services", requireAuth, async (req, res) => {
     const f = formatWriteError(error);
     return res.status(f.status).json(f.body);
   }
-  res.json((data || []).map(normalizeService));
+  const engagementByServiceId = await getServiceEngagementMap(
+    (data || []).map((service) => service.id),
+    { includeComments: true, userId: req.user.id },
+  );
+  res.json(attachEngagement(data || [], engagementByServiceId));
 });
-router.get("/pending", requireAuth, async (req, res) => {
+router.get("/pending", async (req, res) => {
   const { data, error } = await supabase.from("services").select("*").eq("status", "pending");
-  if (error) return res.status(400).json({ error: error.message });
-  res.json(data.map(normalizeService));
+  if (error) return res.json([]);
+  const engagementByServiceId = await getServiceEngagementMap(
+    (data || []).map((service) => service.id),
+    { includeComments: true },
+  );
+  res.json(attachEngagement(data || [], engagementByServiceId));
 });
 router.get("/popular", async (req, res) => {
   const { data, error } = await supabase.from("services").select("*").eq("is_public", true).limit(10);
@@ -83,7 +110,8 @@ router.post("/", requireAuth, async (req, res) => {
     const f = formatWriteError(error);
     return res.status(f.status).json(f.body);
   }
-  res.status(201).json(normalizeService(data));
+  const engagement = await getServiceEngagement(data.id, { userId: req.user.id });
+  res.status(201).json(normalizeService(data, engagement));
 });
 router.put("/:id/approve", requireAuth, async (req, res) => {
   const { id } = req.params;
@@ -217,11 +245,17 @@ router.get("/:id", async (req, res) => {
     ? parseFloat((ratingsData.reduce((sum, c) => sum + c.rating, 0) / ratingsData.length).toFixed(1))
     : 0;
 
+  const engagement = await getServiceEngagement(id, { includeComments: true });
+
   res.json({
     ...normalizeService(data),
     steps: stepsData || [],
     rating: avgRating,
     rating_count: ratingsData?.length ?? 0,
+    comments: engagement.comments,
+    comment_count: engagement.comment_count,
+    votes: engagement.votes,
+    vote_score: engagement.vote_score,
   });
 });
 

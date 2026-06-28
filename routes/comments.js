@@ -4,10 +4,12 @@ import { requireAuth } from "../middleware/auth.js";
 
 const router = express.Router();
 
-// GET /comments/:serviceId - جلب كومنتات خدمة
+// GET /comments/:serviceId - list service comments
 router.get("/:serviceId", async (req, res) => {
     try {
-        const { serviceId } = req.params;
+        const serviceId = String(req.params.serviceId || "").trim();
+        if (!serviceId) return res.status(400).json({ error: "serviceId is required" });
+
         const { data, error } = await supabase
             .from("comments")
             .select("*")
@@ -20,23 +22,25 @@ router.get("/:serviceId", async (req, res) => {
     }
 });
 
-// POST /comments/:serviceId - إضافة كومنت
+// POST /comments/:serviceId - add a service comment
 router.post("/:serviceId", requireAuth, async (req, res) => {
     try {
-        const { serviceId } = req.params;
+        const serviceId = String(req.params.serviceId || "").trim();
         const { content, rating } = req.body;
+        const safeContent = String(content || "").trim();
 
-        if (!content) return res.status(400).json({ error: "content مطلوب" });
+        if (!serviceId) return res.status(400).json({ error: "serviceId is required" });
+        if (!safeContent) return res.status(400).json({ error: "content is required" });
         if (rating && (rating < 1 || rating > 5))
-            return res.status(400).json({ error: "rating لازم يكون بين 1 و 5" });
+            return res.status(400).json({ error: "rating must be between 1 and 5" });
 
-        const { data, error } = await supabase
+        const { data, error } = await req.supabase
             .from("comments")
             .insert([{
                 service_id: serviceId,
                 user_id: req.user.id,
-               user_name: req.user.user_metadata?.name ?? req.user.name ?? req.user.email,
-                content,
+                user_name: req.user.user_metadata?.name ?? req.user.name ?? req.user.email,
+                content: safeContent,
                 rating: rating ?? null,
             }])
             .select()
@@ -49,11 +53,11 @@ router.post("/:serviceId", requireAuth, async (req, res) => {
     }
 });
 
-// DELETE /comments/by-service/:serviceId - حذف كل كومنتات خدمة
+// DELETE /comments/by-service/:serviceId - delete current user's comments on a service
 router.delete("/by-service/:serviceId", requireAuth, async (req, res) => {
     try {
         const { serviceId } = req.params;
-        const { data, error } = await supabase
+        const { data, error } = await req.supabase
             .from("comments")
             .delete()
             .eq("service_id", serviceId)
@@ -63,13 +67,36 @@ router.delete("/by-service/:serviceId", requireAuth, async (req, res) => {
         if (error) return res.status(400).json({ error: error.message });
         if (!data.length) return res.status(404).json({ error: "No comments found" });
         
-        res.json({ message: `تم حذف ${data.length} كومنت` });
+        res.json({ message: `Deleted ${data.length} comments` });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
 
-// GET /comments/:serviceId/rating - متوسط الـ rating
+// DELETE /comments/:commentId - delete one comment owned by the current user
+router.delete("/:commentId", requireAuth, async (req, res) => {
+    try {
+        const commentId = String(req.params.commentId || "").trim();
+        if (!commentId) return res.status(400).json({ error: "commentId is required" });
+
+        const { data, error } = await req.supabase
+            .from("comments")
+            .delete()
+            .eq("id", commentId)
+            .eq("user_id", req.user.id)
+            .select("id")
+            .maybeSingle();
+
+        if (error) return res.status(400).json({ error: error.message });
+        if (!data) return res.status(404).json({ error: "Comment not found" });
+
+        res.json({ message: "Comment deleted successfully", deletedId: data.id });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// GET /comments/:serviceId/rating - average service rating
 router.get("/:serviceId/rating", async (req, res) => {
     try {
         const { serviceId } = req.params;
