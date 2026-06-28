@@ -1,76 +1,120 @@
 import express from "express";
 import { supabase } from "../supabaseClient.js";
 import { requireAuth } from "../middleware/auth.js";
+import { getVoteSummary } from "../lib/serviceEngagement.js";
 
 const router = express.Router();
 
-// POST /votes/:serviceId - إضافة أو تغيير vote
+const normalizeVoteType = (value) => {
+  if (value === 1 || value === "1") return "up";
+  if (value === -1 || value === "-1") return "down";
+
+  const normalized = String(value || "").toLowerCase().trim();
+
+  if (["up", "upvote"].includes(normalized)) return "up";
+  if (["down", "downvote"].includes(normalized)) return "down";
+
+  return null;
+};
+
+const buildVoteResponse = async ({ serviceId, userId, action, voteType }) => {
+  const summary = await getVoteSummary(serviceId, userId);
+
+  return {
+    success: true,
+    action,
+    vote_type: voteType,
+    ...summary,
+  };
+};
+
+// POST /votes/:serviceId - add, change, or remove a vote
 router.post("/:serviceId", requireAuth, async (req, res) => {
-  const { serviceId } = req.params;
-  const { vote_type } = req.body;
+  const serviceId = String(req.params.serviceId || "").trim();
+  const vote_type = normalizeVoteType(
+    req.body?.vote_type ?? req.body?.vote ?? req.body?.type,
+  );
   const user_id = req.user.id;
 
-  if (!vote_type || !["up", "down"].includes(vote_type)) {
-    return res.status(400).json({ error: "vote_type لازم يكون up أو down" });
+  if (!serviceId) {
+    return res.status(400).json({ error: "serviceId is required" });
   }
 
-  // شوف لو اليوزر ده سبق عمل vote على نفس الخدمة
-  const { data: existing } = await supabase
+  if (!vote_type) {
+    return res.status(400).json({ error: "vote_type must be up or down" });
+  }
+
+  const { data: existing, error: existingError } = await req.supabase
     .from("votes")
     .select("id, vote_type")
     .eq("service_id", serviceId)
     .eq("user_id", user_id)
     .maybeSingle();
 
+  if (existingError) return res.status(400).json({ error: existingError.message });
+
   if (existing) {
     if (existing.vote_type === vote_type) {
-      // نفس الـ vote → احذفه (toggle)
-      await supabase.from("votes").delete().eq("id", existing.id);
-      return res.json({ success: true, action: "removed", vote_type });
+      const { error } = await req.supabase.from("votes").delete().eq("id", existing.id);
+      if (error) return res.status(400).json({ error: error.message });
+      return res.json(
+        await buildVoteResponse({
+          serviceId,
+          userId: user_id,
+          action: "removed",
+          voteType: null,
+        }),
+      );
     } else {
-      // vote مختلف → غيّره
-      const { error } = await supabase
+      const { error } = await req.supabase
         .from("votes")
         .update({ vote_type })
         .eq("id", existing.id);
       if (error) return res.status(400).json({ error: error.message });
-      return res.json({ success: true, action: "changed", vote_type });
+      return res.json(
+        await buildVoteResponse({
+          serviceId,
+          userId: user_id,
+          action: "changed",
+          voteType: vote_type,
+        }),
+      );
     }
   }
 
-  // vote جديد
-  const { error } = await supabase
+  const { error } = await req.supabase
     .from("votes")
     .insert([{ service_id: serviceId, user_id, vote_type }]);
   if (error) return res.status(400).json({ error: error.message });
-  res.json({ success: true, action: "added", vote_type });
+  res.json(
+    await buildVoteResponse({
+      serviceId,
+      userId: user_id,
+      action: "added",
+      voteType: vote_type,
+    }),
+  );
 });
 
-// GET /votes/:serviceId - جلب votes الخدمة
+// GET /votes/:serviceId - get vote totals for a service
 router.get("/:serviceId", async (req, res) => {
-  const { serviceId } = req.params;
-  const { data, error } = await supabase
-    .from("votes")
-    .select("vote_type")
-    .eq("service_id", serviceId);
-  if (error) return res.status(400).json({ error: error.message });
-  const upvotes = data.filter((v) => v.vote_type === "up").length;
-  const downvotes = data.filter((v) => v.vote_type === "down").length;
-  res.json({ upvotes, downvotes });
+  try {
+    const { serviceId } = req.params;
+    res.json(await getVoteSummary(serviceId));
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 
-// GET /votes/:serviceId/my-vote - شوف vote اليوزر الحالي
+// GET /votes/:serviceId/my-vote - get current user's vote
 router.get("/:serviceId/my-vote", requireAuth, async (req, res) => {
   const { serviceId } = req.params;
-  const user_id = req.user.id;
-  const { data, error } = await supabase
-    .from("votes")
-    .select("vote_type")
-    .eq("service_id", serviceId)
-    .eq("user_id", user_id)
-    .maybeSingle();
-  if (error) return res.status(400).json({ error: error.message });
-  res.json({ vote_type: data?.vote_type ?? null });
+  try {
+    const summary = await getVoteSummary(serviceId, req.user.id);
+    res.json({ vote_type: summary.user_vote, ...summary });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 
 export default router;
